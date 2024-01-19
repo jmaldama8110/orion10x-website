@@ -3,6 +3,9 @@ import './components/css/Components.css';
 import { BackgroudSlider } from './components/BackgroundSlider';
 
 import { About } from './components/About';
+import { Cover } from './components/Cover';
+import { Team } from './components/Team';
+import { Footer } from './components/Footer';
 function App() {
 
   return (
@@ -13,11 +16,13 @@ function App() {
         <div className='img-container'>
           <BackgroudSlider />
         </div>
-        <div className='cover'></div>
+        <Cover />
+
       </section>
       <div className='mil-deco'></div>
       <About />
-
+      <Team />
+      <Footer />
     
 
     </>

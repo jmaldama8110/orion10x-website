@@ -1,7 +1,9 @@
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import icon01 from "../assets/icons/sm/1.svg";
 import icon02 from "../assets/icons/sm/2.svg";
 import icon03 from "../assets/icons/sm/3.svg";
 import icon04 from "../assets/icons/sm/4.svg";
+import { faArrowRight } from "@fortawesome/free-solid-svg-icons";
 
 export function About() {
   return (
@@ -80,7 +82,7 @@ export function About() {
           <div className="col-md-6 col-xl-6">
             <a href="#." className="mil-link mil-mb-30">
               <span>Saber más</span>
-              <i className="fas fa-arrow-right"></i>
+            <i> <FontAwesomeIcon icon={faArrowRight} size='1x' /></i>
             </a>
           </div>
           <div className="col-md-6 col-xl-6">
