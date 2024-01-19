@@ -1,0 +1,143 @@
+header {
+    position: absolute;
+    top: 0rem;
+    text-align: center;
+    width: 100%;
+    z-index: 100;
+}
+
+header nav {
+    background: transparent;
+    position: absolute;
+    padding-top: 1em;
+    top: 100%;
+    width: 100%;
+    transform: scale(1,0);
+    transform-origin: top;
+    transition: transform 400ms;
+
+}
+header .menu-container p{
+    color: var(--clr-orange);
+}
+
+header nav ul{
+    text-align: left;
+    list-style: none;
+}
+header nav li {
+    margin-bottom: 1em;
+    margin-left: 1em;
+}
+header nav a,
+header nav p {
+    color: white;
+    text-decoration: none;
+    opacity: 0;
+    transition: opacity 150ms ease-in-out;
+}
+header nav a:hover {
+    color: var(--clr-orange);
+}
+
+header .navtoggle {
+    display: none;
+}
+header .navtoggle:checked ~ nav {    
+    transform: scale(1,1);
+}
+header .navtoggle:checked ~ nav a,
+header .navtoggle:checked ~ nav p{    
+    opacity: 1;
+    transition: opacity 250ms ease-in-out 250ms;
+}
+
+header .navtoggle-label {
+    position: absolute;
+    top: 0;
+    left: 0;
+    margin-left: 1em;
+    height: 100%;
+    display: flex;
+    align-items: center;
+}
+
+header .navtoggle-label span,
+header .navtoggle-label span::before,
+header .navtoggle-label span::after {
+    display: block;
+    background: white;
+    height: 2px;
+    width: 2em;
+    border-radius: 2px;
+    position: relative;
+}
+header .navtoggle-label span::before,
+header .navtoggle-label span::after {
+    content: '';
+    position: absolute;
+}
+header .navtoggle-label span::before {
+    bottom: 7px;
+}
+header .navtoggle-label span::after {
+    top: 7px;
+}
+
+@media screen and (min-width: 980px) {
+
+    header .navtoggle-label {
+        display: none;
+    }
+    header .menu-container p{
+        color: white;
+    }
+    
+    header {
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+    }
+    header .menu-container{
+        display: flex;
+        justify-content: space-between;
+        width: var(--maximum-width);
+        margin: auto;
+    }
+
+    header nav {
+        all: unset;        
+    }
+
+    header nav a,header nav p {
+        opacity: 1;
+        color: white;
+    }
+    header nav li {
+        position: relative;        
+    }
+    header nav ul {
+        display: flex;
+        justify-content: flex-start;
+        margin-top: 2em;
+    }
+    header nav li {
+        width: 120px;
+        text-align: center;
+    }
+    header nav li::before {
+        content: '';
+        display: block;
+        height: 4px;
+        background: white;
+        position: absolute;
+        top: -0.75em;
+        left: 0;
+        right: 0;
+        transform: scale(0,1);
+        transition: transform ease-in-out 250ms;
+    }
+    header nav li:hover::before {
+        transform: scale(1,1);
+    }
+}

@@ -1,0 +1,18 @@
+.central-swiper {
+    width: 100%;
+    height: 100%;
+    position: absolute;
+    top: 0;
+    z-index: -2;
+}
+
+.central-swiper img {
+    -webkit-filter: grayscale(100%); /* Safari 6.0 - 9.0 */
+    filter: grayscale(100%); 
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    object-position: center;
+ 
+}
+
