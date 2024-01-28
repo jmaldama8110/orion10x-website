@@ -6,11 +6,11 @@ import fabianSefi from '../assets/faces/fabian-selfi.jpeg';
 import icon05 from '../assets/icons/md/5.svg';
 import icon6l from '../assets/icons/md/6l.svg';
 
-export function Team() {
+export function AboutTeamAndCompany() {
     
     return (
 
-        <div className="mil-wrapper">
+    <div className="mil-wrapper" id="about">
 
         <div className="mil-banner-sm mil-deep-bg">
             <img src={mapImg} alt="background" className="mil-background-image"/>
