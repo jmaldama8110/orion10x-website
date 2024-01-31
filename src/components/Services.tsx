@@ -16,9 +16,10 @@ import iconSm05 from '../assets/icons/sm/5.svg';
 import iconSm06 from '../assets/icons/sm/6.svg';
 import iconSm07 from '../assets/icons/sm/7.svg';
 import iconSm08 from '../assets/icons/sm/8.svg';
-import { faArrowRight } from '@fortawesome/free-solid-svg-icons';
+import { IconListItem, iPageData, valueParagraphType } from '../reducer/PageModel';
 
-export const Services = () => {
+
+export const Services: React.FC<{ data: iPageData }> = ({ data })=> {
     return (
         <div id="services">
 
@@ -28,10 +29,10 @@ export const Services = () => {
                     <div className="mil-banner-content">
                         <div className="container mil-relative">
                             <ul className="mil-breadcrumbs mil-mb-30">
-                                <li><a href="home-1.html">Home</a></li>
-                                <li><a href="service-1.html">Service</a></li>
+                            <li><a href={data.servicesSection.pageBreadcrumb.url}>{ data.servicesSection.pageBreadcrumb.textLeft}</a></li>
+                            <li><a href="service-1.html">{ data.servicesSection.pageBreadcrumb.sectionName}</a></li>
                             </ul>
-                            <h2 className="mil-uppercase">SaaS development services</h2>
+                        <h2 className="mil-uppercase">{ data.servicesSection.headingTitle}</h2>
                         </div>
                     </div>
             </div>
@@ -47,13 +48,12 @@ export const Services = () => {
                                         <img src={icon01} alt="icon"/>
                                     </div>
                                 </div>
-                                <h5>Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqu quis ipsum suspendisse ultrices gravida.</h5>
+                                <h5>{ data.servicesSection.ctaDescription}</h5>
                             </div>
                         </div>
                         <div className="col-lg-4">
-
                             <div className="mil-adaptive-right">
-                                <a href="#." className="mil-button mil-border mil-mb-30"><span>Get in Touch</span></a>
+                                <a href="#." className="mil-button mil-border mil-mb-30"><span>{ data.servicesSection.ctaButton.label}</span></a>
                             </div>
 
                         </div>
@@ -70,97 +70,29 @@ export const Services = () => {
                 <div className="container">
                     <div className="row">
                         <div className="col-12 mil-mb-90">
-                            <span className="mil-suptitle mil-suptitle-2 mil-mb-30">Services and Solutions</span>
-                            <h2 className="mil-mb-30">Our SaaS Development Services Let You Win Big</h2>
-                            <p className="mil-dark">Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna.</p>
+                            <span className="mil-suptitle mil-suptitle-2 mil-mb-30">{data.servicesSection.subtitle }</span>
+                            <h2 className="mil-mb-30">{ data.servicesSection.headingSubtitle}</h2>
+                            <p className="mil-dark">{data.servicesSection.subtitleDescription }</p>
                         </div>
                     </div>
                     <div className="row mil-mb-30-adapt">
-                        <div className="col-xl-4">
-
+                    {
+                            data.servicesSection.paragraphs.map((i: valueParagraphType,n:number) => (
+                        <div className="col-xl-4" key={n}>
                             <div className="mil-mb-60">
                                 <div className="mil-number-icon mil-circle mil-mb-30">
-                                    <span>01</span>
+                                            <span>{`0${(n+1)}`}</span>
                                 </div>
-                                <h4 className="mil-mb-15">SaaS Development Consulting</h4>
-                                <p>Dissuade ecstatic and properly saw entirely sir why laughter endeavor. In on my jointure horrible margaret suitable he followed speedily.</p>
+                                    <h4 className="mil-mb-15">{ i.title}</h4>
+                                    <p>{i.description }</p>
                             </div>
-
                         </div>
-                        <div className="col-xl-4">
 
-                            <div className="mil-mb-60">
-                                <div className="mil-number-icon mil-lines mil-mb-30">
-                                    <span>02</span>
-                                </div>
-                                <h4 className="mil-mb-15">SaaS Design and Prototyping</h4>
-                                <p>Dissuade ecstatic and properly saw entirely sir why laughter endeavor. In on my jointure horrible margaret suitable he followed speedily.</p>
-                            </div>
+))        
+                    }
 
-                        </div>
-                        <div className="col-xl-4">
-
-                            <div className="mil-mb-60">
-                                <div className="mil-number-icon mil-mb-30">
-                                    <span>03</span>
-                                </div>
-                                <h4 className="mil-mb-15">End-to-End SaaS Development</h4>
-                                <p>Dissuade ecstatic and properly saw entirely sir why laughter endeavor. In on my jointure horrible margaret suitable he followed speedily.</p>
-                            </div>
-
-                        </div>
-                        <div className="col-xl-4">
-
-                            <div className="mil-mb-60">
-                                <div className="mil-number-icon mil-mb-30">
-                                    <span>04</span>
-                                </div>
-                                <h4 className="mil-mb-15">Migration to SaaS</h4>
-                                <p>Dissuade ecstatic and properly saw entirely sir why laughter endeavor. In on my jointure horrible margaret suitable he followed speedily.</p>
-                            </div>
-
-                        </div>
-                        <div className="col-xl-4">
-
-                            <div className="mil-mb-60">
-                                <div className="mil-number-icon mil-circle mil-mb-30">
-                                    <span>05</span>
-                                </div>
-                                <h4 className="mil-mb-15">Third Party Integrations</h4>
-                                <p>Dissuade ecstatic and properly saw entirely sir why laughter endeavor. In on my jointure horrible margaret suitable he followed speedily.</p>
-                            </div>
-
-                        </div>
-                        <div className="col-xl-4">
-
-                            <div className="mil-mb-60">
-                                <div className="mil-number-icon mil-lines mil-mb-30">
-                                    <span>06</span>
-                                </div>
-                                <h4 className="mil-mb-15">SaaS Support and Maintenance</h4>
-                                <p>Dissuade ecstatic and properly saw entirely sir why laughter endeavor. In on my jointure horrible margaret suitable he followed speedily.</p>
-                            </div>
-
-                        </div>
 
                     </div>
-                    
-                    
-                    {/* <div className="row align-items-center">
-                        <div className="col-md-6 col-xl-6">
-
-                            <a href="#." className="mil-button mil-border mil-mb-30"><span>Tell us about your project</span></a>
-
-                        </div>
-                        <div className="col-md-6 col-xl-6">
-
-                            <div className="mil-adaptive-right">
-                                <a href="#." className="mil-link mil-mb-30"><span>See More</span><i><FontAwesomeIcon icon={faArrowRight} /></i></a>
-                            </div>
-
-                        </div>
-                    </div> */}
-                    
                     
                 </div>
             </section>
@@ -307,94 +239,29 @@ export const Services = () => {
                 <div className="mil-deco mil-deco-accent" style={{top: "0", left: "5%",}}></div>
                 <div className="container">
                     <div className="mil-text-center mil-mb-90">
-                        <span className="mil-suptitle  mil-light mil-suptitle-2 mil-mb-30">Always The Best</span>
-                        <h2 className="mil-light mil-mb-30">Types Of <span className="mil-accent">SaaS Applications</span> We Deliver</h2>
-                        <p className="mil-light-soft">Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.</p>
+                        <span className="mil-suptitle  mil-light mil-suptitle-2 mil-mb-30">{ data.servicesSection.footNote }</span>
+                        <h2 className="mil-light mil-mb-30">{data.servicesSection.footNoteHeading.leftText} <span className="mil-accent">{data.servicesSection.footNoteHeading.centerText}</span> {data.servicesSection.footNoteHeading.rightText }</h2>
+                        <p className="mil-light-soft">{ data.servicesSection.footNoteDescription}</p>
                     </div>
                     <div className="row mil-mb-30-adapt">
-                        <div className="col-lg-3">
-
+                        
+                        {
+                            data.servicesSection.footNoteIconList.map((i: IconListItem,n:number) => (
+                        <div className="col-lg-3" key={n}>
                             <div className="mil-icon-box-head mil-long mil-mob-center mil-mb-60">
                                 <div className="mil-icon-frame mil-icon-frame-sm mil-light">
-                                    <img src={ iconSm06} alt="icon" />
+                                    <img src={`${import.meta.env.VITE_API_URL}${i.iconImg}`} alt="icon" />
                                 </div>
-                                <p className="mil-light">CRMs Platforms</p>
+                                <p className="mil-light">{ i.label}</p>
                             </div>
-
                         </div>
-                        <div className="col-lg-3">
+                                
+                            ))
+                        }
 
-                            <div className="mil-icon-box-head mil-long mil-mob-center mil-mb-60">
-                                <div className="mil-icon-frame mil-icon-frame-sm mil-light">
-                                    <img src={iconSm02} alt="icon" />
-                                </div>
-                                <p className="mil-light">ERPs Platforms</p>
-                            </div>
-
-                        </div>
-                        <div className="col-lg-3">
-
-                            <div className="mil-icon-box-head mil-long mil-mob-center mil-mb-60">
-                                <div className="mil-icon-frame mil-icon-frame-sm mil-light">
-                                    <img src={iconSm07} alt="icon" />
-                                </div>
-                                <p className="mil-light">Marketing Software</p>
-                            </div>
-
-                        </div>
-                        <div className="col-lg-3">
-
-                            <div className="mil-icon-box-head mil-long mil-mob-center mil-mb-60">
-                                <div className="mil-icon-frame mil-icon-frame-sm mil-light">
-                                    <img src={iconSm03} alt="icon" />
-                                </div>
-                                <p className="mil-light">Project Management Systems</p>
-                            </div>
-
-                        </div>
-                        <div className="col-lg-3">
-
-                            <div className="mil-icon-box-head mil-long mil-mob-center mil-mb-60">
-                                <div className="mil-icon-frame mil-icon-frame-sm mil-light">
-                                    <img src={iconSm05} alt="icon" />
-                                </div>
-                                <p className="mil-light">Accounting Systems</p>
-                            </div>
-
-                        </div>
-                        <div className="col-lg-3">
-
-                            <div className="mil-icon-box-head mil-long mil-mob-center mil-mb-60">
-                                <div className="mil-icon-frame mil-icon-frame-sm mil-light">
-                                    <img src= {iconSm01} alt="icon" />
-                                </div>
-                                <p className="mil-light">Document Auto. Solutions</p>
-                            </div>
-
-                        </div>
-                        <div className="col-lg-3">
-
-                            <div className="mil-icon-box-head mil-long mil-mob-center mil-mb-60">
-                                <div className="mil-icon-frame mil-icon-frame-sm mil-light">
-                                    <img src= {iconSm04} alt="icon" />
-                                </div>
-                                <p className="mil-light">Cybersecurity Platforms</p>
-                            </div>
-
-                        </div>
-                        <div className="col-lg-3">
-
-                            <div className="mil-icon-box-head mil-long mil-mob-center mil-mb-60">
-                                <div className="mil-icon-frame mil-icon-frame-sm mil-light">
-                                    <img src={ iconSm08} alt="icon" />
-                                </div>
-                                <p className="mil-light">HR/HRM Software</p>
-                            </div>
-
-                        </div>
                     </div>
                     <div className="mil-text-center">
-                        <a href="#." className="mil-button mil-border mil-light mil-mb-30"><span>Talk To Our SaaS Experts</span></a>
+                        <a href="#." className="mil-button mil-border mil-light mil-mb-30"><span>{ data.servicesSection.footNoteCta.label}</span></a>
                     </div>
                 </div>
             </section>

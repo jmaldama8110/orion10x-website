@@ -5,7 +5,7 @@ import { iPageData, menuItemType } from '../reducer/PageModel';
 export const Header: React.FC<{ data: iPageData}> = ({ data }) => {
     
     return (
-        <header id="#home">
+        <header id="home">
             <div className='menu-container'>
                 <input type='checkbox' className='navtoggle' id='togglecheck-header'></input>
                 <nav>
