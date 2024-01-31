@@ -1,21 +1,8 @@
 
-import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
+
 import decoMap from '../assets/deco/map.png';
 import icon01 from '../assets/icons/md/1.svg';
-import icon02 from '../assets/icons/md/2.svg';
-import icon03 from '../assets/icons/md/3.svg';
-import icon04 from '../assets/icons/md/4.svg';
-import icon05 from '../assets/icons/md/5.svg';
-import icon06 from '../assets/icons/md/6.svg';
 
-import iconSm01 from '../assets/icons/sm/1.svg';
-import iconSm02 from '../assets/icons/sm/2.svg';
-import iconSm03 from '../assets/icons/sm/3.svg';
-import iconSm04 from '../assets/icons/sm/4.svg';
-import iconSm05 from '../assets/icons/sm/5.svg';
-import iconSm06 from '../assets/icons/sm/6.svg';
-import iconSm07 from '../assets/icons/sm/7.svg';
-import iconSm08 from '../assets/icons/sm/8.svg';
 import { IconListItem, iPageData, valueParagraphType } from '../reducer/PageModel';
 
 
