@@ -75,9 +75,6 @@ function App() {
         const qs = `/api/pages?${str.join("")}`;
         const response = await api.get(qs);
 
-          console.log(response.data.data[0].attributes.footerSection);
-          
-
         const attributes = response.data.data[0].attributes;
         const backgroundSlides = attributes.backgroundSlides.slides.map(
           (i: any) => ({
