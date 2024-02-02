@@ -69,7 +69,6 @@ function App() {
           "populate[35]=footerSection.playstoreButton&",
           "populate[36]=footerSection.appstoreButton",
 
-            
     
         ];
         const qs = `/api/pages?${str.join("")}`;
