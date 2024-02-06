@@ -57,5 +57,6 @@ export const Contact : React.FC<{ data: iPageData}> = ({ data }) => {
                 </form>
             </div>
         </section>
+    
 );
 }

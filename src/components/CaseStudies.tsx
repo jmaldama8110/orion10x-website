@@ -31,8 +31,8 @@ export const CaseStudies: React.FC<{ data: iPageData }> = ({ data }) => {
             <h2 className="mil-uppercase">{ data.caseStudiesSection.headingText}</h2>
           </div>
         </div>
-      </div>
-
+    </div>
+    
       <section className="mil-p-120-120">
         <div className="container">
                   {

@@ -47,10 +47,7 @@ export const Blog: React.FC<{ data: iPageData }> = ({ data }) => {
                                 </div>
                             </div>
                         </a>
-
 ))}
-
-
                         <div className="mil-divider mil-mb-60"></div>
 
                         <div className="mil-pagination mil-hidden-arrows">
