@@ -27,21 +27,21 @@ function App() {
       try {
         const str = [
           "filters[id][$eq]=1&",
-          "populate[0]=metaData.metaImage&",
+          "populate[0]=metaData&",
           "populate[1]=menu.items&",
-          "populate[2]=backgroundSlides.slides.image&",
+          "populate[2]=backgroundSlides.slides&",
           "populate[3]=introSection.twoColorTitle&",
           "populate[4]=introSection.floatingWords&",
           "populate[5]=introSection.button&",
           "populate[6]=teamCompanySection.pageBreadcrumb&",
           "populate[7]=teamCompanySection.subtitle&",
-          "populate[8]=teamCompanySection.team.selfi&",
+          "populate[8]=teamCompanySection.team&",
           "populate[9]=teamCompanySection.valuesTitle&",
           "populate[10]=teamCompanySection.valuesParagraphs&",
           "populate[11]=teamCompanySection.ctaButton&",
           "populate[12]=teamCompanySection.ctaTitle&",
           "populate[13]=caseStudiesSection.pageBreadcrumb&",
-          "populate[14]=caseStudiesSection.cases.image&",
+          "populate[14]=caseStudiesSection.cases&",
 
           "populate[15]=servicesSection&",
           "populate[16]=servicesSection.pageBreadcrumb&",
@@ -49,15 +49,15 @@ function App() {
           "populate[18]=servicesSection.paragraphs&",
           "populate[19]=servicesSection.ctaButton2&",
           "populate[20]=servicesSection.footNoteHeading&",
-          "populate[21]=servicesSection.footNoteIconList.iconImg&",
+          "populate[21]=servicesSection.footNoteIconList&",
           "populate[22]=servicesSection.footNoteCta&",
     
           "populate[23]=blogSection.pageBreadcrumb&",
-          "populate[24]=blogSection.noteSelfi&",
+          "populate[24]=blogSection&",
           "populate[25]=blogSection.bullets&",
           "populate[26]=blogSection.tagList&",
           "populate[27]=blogSection.contactUsButton&",
-          "populate[28]=blogSection.entries.image&",
+          "populate[28]=blogSection.entries&",
           
           "populate[29]=contactSection.headingTitle&",
           "populate[30]=contactSection.contactButton&",
@@ -79,7 +79,7 @@ function App() {
           (i: any) => ({
             order: i.order,
             description: i.description,
-            imageUrl: i.image.data.attributes.url,
+            imageUrl: i.imageUrl,
           })
         );
 
@@ -91,7 +91,7 @@ function App() {
             metaData: {
               metaDescription: attributes.metaData.metaDescription,
               metaTitle: attributes.metaData.metaTitle,
-              metaImageUrl: attributes.metaData.metaImage.data.attributes.url,
+              logoUrl: attributes.metaData.logoUrl,
             },
             backgroundSlides,
             introSection: {
@@ -132,7 +132,7 @@ function App() {
               team: attributes.teamCompanySection.team.map((i: any) => ({
                 name: i.name,
                 position: i.position,
-                selfiUrl: i.selfi.data.attributes.url,
+                selfiUrl: i.selfiUrl,
               })),
               valuesDescription:
                 attributes.teamCompanySection.valuesDescription,
@@ -152,7 +152,7 @@ function App() {
                       textLeft: attributes.caseStudiesSection.pageBreadcrumb.textLeft
                   },
                   headingText: attributes.caseStudiesSection.headingText,
-                  cases: attributes.caseStudiesSection.cases.map((i: any) => ({ title: i.title, subtitle: i.subtitle, imageUrl: i.image.data.attributes.url, buttonLabel: i.buttonLabel,buttonUrl: i.buttonUrl }))
+                  cases: attributes.caseStudiesSection.cases.map((i: any) => ({ title: i.title, subtitle: i.subtitle, imageUrl: i.imageUrl, buttonLabel: i.buttonLabel,buttonUrl: i.buttonUrl }))
               },
               servicesSection: {
                   headingTitle: attributes.servicesSection.headingTitle,
@@ -172,7 +172,7 @@ function App() {
                   subtitleDescription: attributes.servicesSection.subtitleDescription,
                   
                   footNote: attributes.servicesSection.footNote,
-                  footNoteIconList: attributes.servicesSection.footNoteIconList.map((i: any) => ({ iconImg: i.iconImg.data.attributes.url, label: i.label })),
+                  footNoteIconList: attributes.servicesSection.footNoteIconList.map((i: any) => ({ iconImg: i.iconUrl, label: i.label })),
                   footNoteCta: {
                       label: attributes.servicesSection.footNoteCta.label,
                       style: attributes.servicesSection.footNoteCta.style
@@ -193,7 +193,7 @@ function App() {
                   },
                   noteTitle: attributes.blogSection.noteTitle,
                   noteDescription: attributes.blogSection.noteDescription,
-                  noteSelfi: attributes.blogSection.noteSelfi.data.attributes.url,
+                  noteSelfi: attributes.blogSection.noteSelfiUrl,
                   noteName: attributes.blogSection.noteName,
                   notePosition: attributes.blogSection.notePosition,
                   
@@ -216,7 +216,7 @@ function App() {
                       category: i.category,
                       dateIssued: i.dateIssued,
                       description: i.description,
-                      imageUrl: i.image.data.attributes.url
+                      imageUrl: i.imageUrl
                   }))
               },
              contactSection: {

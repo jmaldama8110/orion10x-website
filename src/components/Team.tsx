@@ -54,7 +54,7 @@ export const AboutTeamAndCompany: React.FC<{ data: iPageData }> = ({ data }) => 
                   <a className="mil-team-card mil-mb-60">
                     <div className="mil-image-frame mil-mb-30">
                       <img
-                        src={`${import.meta.env.VITE_API_URL}${i.selfiUrl}`}
+                        src={`${i.selfiUrl}`}
                         alt="Team member"
                       />
                       <div className="mil-team-circle"></div>

@@ -41,7 +41,7 @@ export const CaseStudies: React.FC<{ data: iPageData }> = ({ data }) => {
                               "row flex-sm-row-reverse justify-content-between align-items-center"} key={n}>
                 <div className="col-xl-6 mil-mb-60">
                 <div className="mil-project-cover">
-                    <img src={`${import.meta.env.VITE_API_URL}${i.imageUrl}`} alt="Project" />
+                    <img src={`${i.imageUrl}`} alt="Project" />
                 </div>
                 </div>
 

@@ -10,7 +10,7 @@ export type ActionPageType =
 export type metaDataType = {
     metaTitle: string
     metaDescription: string
-    metaImageUrl: string
+    logoUrl: string
 }
 export type menuItemType = {
     position: number
@@ -206,7 +206,7 @@ export const PageDataDefault: iPageData = {
     slug: '',
     metaData: {
         metaDescription: '',
-        metaImageUrl: '',
+        logoUrl: '',
         metaTitle: ''
     },
     menu: [],

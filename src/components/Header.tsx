@@ -21,7 +21,7 @@ export const Header: React.FC<{ data: iPageData}> = ({ data }) => {
                 <label htmlFor='togglecheck-header' className='navtoggle-label'>
                     <span></span>
                 </label>
-                 <p><img src={`${import.meta.env.VITE_API_URL}${data.metaData.metaImageUrl}`}></img></p> 
+                 <p><img src={`${data.metaData.logoUrl}`}></img></p> 
             </div>
         </header>
     );

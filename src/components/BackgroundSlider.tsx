@@ -23,7 +23,7 @@ export const BackgroudSlider: React.FC< {data: iPageData}> = ( { data } ) => {
       {
         data.backgroundSlides.map((slide: slideItemType) => (
           <SwiperSlide className="slide" key={slide.order}>
-            <img src={`${import.meta.env.VITE_API_URL}${slide.imageUrl}`}></img>
+            <img src={`${slide.imageUrl}`}></img>
           </SwiperSlide>
         ))
       }

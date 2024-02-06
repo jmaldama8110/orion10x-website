@@ -237,7 +237,7 @@ export const Services: React.FC<{ data: iPageData }> = ({ data })=> {
                         <div className="col-lg-3" key={n}>
                             <div className="mil-icon-box-head mil-long mil-mob-center mil-mb-60">
                                 <div className="mil-icon-frame mil-icon-frame-sm mil-light">
-                                    <img src={`${import.meta.env.VITE_API_URL}${i.iconImg}`} alt="icon" />
+                                    <img src={`${i.iconImg}`} alt="icon" />
                                 </div>
                                 <p className="mil-light">{ i.label}</p>
                             </div>

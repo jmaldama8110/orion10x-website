@@ -32,7 +32,7 @@ export const Blog: React.FC<{ data: iPageData }> = ({ data }) => {
                                 data.blogSection.entries.map((i: BlogEntryType, n: number) => (
                         <a href="publication.html" className="mil-card mil-mb-60" key={n}>
                             <div className="mil-cover-frame">
-                                <img src={`${import.meta.env.VITE_API_URL}${i.imageUrl}`} alt="project" />
+                                <img src={`${i.imageUrl}`} alt="project" />
                             </div>
                             <div className="mil-description">
                                 <div className="mil-card-title">
@@ -74,7 +74,7 @@ export const Blog: React.FC<{ data: iPageData }> = ({ data }) => {
                                 <h5 className="mil-list-title mil-mb-30">{ data.blogSection.noteTitle}</h5>
                                 <p className="mil-mb-30">{ data.blogSection.noteDescription}</p>
                             <a href="team-single.html" className="mil-post-sm mil-mb-15">
-                                <div className="mil-cover-frame"><img src={`${import.meta.env.VITE_API_URL}${data.blogSection.noteSelfi}`} alt="cover"/></div>
+                                <div className="mil-cover-frame"><img src={`${data.blogSection.noteSelfi}`} alt="cover"/></div>
                                 <div className="mil-description">
                                         <h4 className="mil-font-3 mil-accent">{ data.blogSection.noteName}</h4>
                                         <p className="mil-text-sm">{ data.blogSection.notePosition}</p>
@@ -94,7 +94,7 @@ export const Blog: React.FC<{ data: iPageData }> = ({ data }) => {
                                     data.blogSection.entries.map((i: BlogEntryType, n: number) => (
                                         
                             <a href="publication.html" className="mil-post-sm mil-mb-15" key={n}>
-                                <div className="mil-cover-frame"><img src={`${import.meta.env.VITE_API_URL}${i.imageUrl}`} alt="cover"/> </div>
+                                <div className="mil-cover-frame"><img src={`${i.imageUrl}`} alt="cover"/> </div>
                                 <div className="mil-description">
                                                 <h6>{ i.title}</h6>
                                 </div>
