@@ -1,12 +1,48 @@
 import { iPageData } from "../reducer/PageModel";
+import api from "../api/api";
+import { useState } from "react";
 
-export const Contact : React.FC<{ data: iPageData}> = ({ data }) => {
+export const Contact: React.FC<{ data: iPageData }> = ({ data }) => {
+    
+    const [showLoading, setShowLoading] = useState<boolean>(false);
+    const [isSent, setIsSent] = useState<boolean>(false);
+    const [error, setError] = useState<string>('');
+    
+   
+    async function sendFormContactData(e: any) {
+        e.preventDefault();
+        const formData = new FormData(document.getElementById('formFeedback') as HTMLFormElement);
+        setError('');
+        try {
+            
+            setShowLoading(true);
+            const res = await api.post(`/api/sendemail`, {
+                name: formData.get("name"),
+                email: formData.get("email"),
+                phone: formData.get("phone"),
+                message: formData.get("message"),
+                template_id: "d-59e677f1fe0b4aeea317fb1d9ea97cdd"
+            });
+            if (!res.data.error) {
+                setShowLoading(false);
+                setIsSent(true);
+            } else {
+                setError(res.data.error)
+            }
+            
+        }
+        catch (e) {
+            console.log(e);
+            setIsSent(false);
+            setError('Error')
+        }
+    }
     return (
         <section className="mil-contact mil-gradient-bg mil-p-120-0" id='contact'>
             <div className="mil-deco mil-deco-accent" style={{top: "0", right: "10%"}}></div>
             <div className="container">
                 <h2 className="mil-light mil-mb-90">{data.contactSection.headingTitle.textLeft} <span className="mil-accent">{ data.contactSection.headingTitle.textRight}</span></h2>
-                <form id="formFeedback" method="post" encType="multipart/form-data">
+                <form id="formFeedback" method="post" encType="multipart/form-data" onSubmit={sendFormContactData}>
                     <div className="row">
                         <div className="col-lg-6">
 
@@ -48,12 +84,19 @@ export const Contact : React.FC<{ data: iPageData}> = ({ data }) => {
                         </div>
                         <div className="col-12">
 
-                            <button type="submit" className="mil-button mil-accent-bg mil-fw"><span>{data.contactSection.contactButton.label }</span></button>
+                        {!isSent &&
+                         <button type="submit" className="mil-button mil-accent-bg mil-fw" disabled={!isSent && showLoading}>
+                            {showLoading ? <div className="spinner"></div>
+                            : <span>{data.contactSection.contactButton.label}</span>}
+                             
+                         </button>}
+
 
                         </div>
+                            
                     </div>
-                    {/* <div className="alert-success" style={{ display: "none"}}><h5>Thanks, your message is sent successfully.</h5></div> */}
-                    {/* <div className="alert-error" style={ { display: "none"} }><h5>Error! Message could not be sent.</h5></div> */}
+                    { isSent && !error && <div className="alert-success" style={{ display: "block"}}><h5>Gracias, tu mensaje ha sido enviado</h5></div>}
+                    { !!error && <div className="alert-error" style={{ display: "block" }}><h5>Oops algo salio mal, disculpa el incoveniente.</h5></div>}
                 </form>
             </div>
         </section>

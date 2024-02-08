@@ -301,7 +301,7 @@ function App() {
             <Cover data={pageData} />
           </section>
         <AboutTeamAndCompany data={ pageData} />
-        <Services data={pageData} />
+        <Services data={pageData} />    
         <CaseStudies data={ pageData} />
         <Blog data={pageData}/>
         <Contact data={pageData}/>

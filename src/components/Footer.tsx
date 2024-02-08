@@ -62,9 +62,7 @@ export const Footer: React.FC<{ data: iPageData }> = ({ data }) => {
           <div className="row justify-content-between align-items-center">
             <div className="col-xl-4 mil-mb-30">
               <img
-                src={`${import.meta.env.VITE_API_URL}${
-                  data.metaData.logoUrl
-                }`}
+                src={`${data.metaData.logoUrl}`}
                 alt=""
                 className="mil-logo mil-mb-30"
                 style={{ width: "140px" }}
