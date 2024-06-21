@@ -95,8 +95,8 @@ export const Contact: React.FC<{ data: iPageData }> = ({ data }) => {
                         </div>
                             
                     </div>
-                    { isSent && !error && <div className="alert-success" style={{ display: "block"}}><h5>Gracias, tu mensaje ha sido enviado</h5></div>}
-                    { !!error && <div className="alert-error" style={{ display: "block" }}><h5>Oops algo salio mal, disculpa el incoveniente.</h5></div>}
+                    {isSent && !error && <div className="alert-success" style={{ display: "block" }}><h5>{data.contactSection.messageSentOk }</h5></div>}
+                    {!!error && <div className="alert-error" style={{ display: "block" }}><h5>{ data.contactSection.messageSentError}</h5></div>}
                 </form>
             </div>
         </section>

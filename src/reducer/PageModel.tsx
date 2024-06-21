@@ -181,6 +181,8 @@ export interface iPageData {
         optionalLabel: string
         contactButton: buttonType
         filesizeLabel: string
+        messageSentOk: string
+        messageSentError: string
     },
     footerSection: {
         orionBrief: string
@@ -330,7 +332,9 @@ export const PageDataDefault: iPageData = {
         contactButton: {
             label: "",
             style: "primary"
-        }
+        },
+        messageSentOk: '',
+        messageSentError: ''
         
     },
     footerSection: {

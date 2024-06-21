@@ -238,7 +238,9 @@ function App() {
                 contactButton: {
                     label: attributes.contactSection.contactButton.label,
                     style: attributes.contactSection.contactButton.style
-                }
+                 },
+                 messageSentOk: attributes.contactSection.messageSentOk,
+                 messageSentError: attributes.contactSection.messageSentError
                 
               },
               footerSection: {
