@@ -7,7 +7,8 @@ header {
 }
 
 header nav {
-    background: transparent;
+    /* background: transparent; */
+    background: gray;
     position: absolute;
     padding-top: 1em;
     top: 100%;
@@ -17,6 +18,7 @@ header nav {
     transition: transform 400ms;
 
 }
+
 header .menu-container p{
     color: var(--clr-orange);
 }
