@@ -1,0 +1,37 @@
+
+.accordion-jm li {
+    list-style: none;
+    width: 100%;
+    margin-bottom: 10px;
+    background: #fff;
+    padding: 10px;
+    border-radius: 4px;
+}
+
+.accordion-jm li label {
+    padding: 10px;
+    display:  flex;
+    align-items: center;
+    justify-content: space-between;
+    font-size: 18px;
+    font-weight: 500;
+    cursor: pointer;
+    
+    width: 100%; /* override width 25% from mil-tabs label*/
+}
+
+.accordion-jm li label span  {
+    transform: rotate(90deg);
+}
+.accordion-jm .detailed-content {
+    padding: 0 10px;
+    line-height: 26px;
+    max-height: 0;
+    overflow: hidden;
+    transition: max-height 0.5s;
+}
+
+.accordion-jm label + input[type="radio"]:checked + .detailed-content {
+    max-height: 500px;
+}
+

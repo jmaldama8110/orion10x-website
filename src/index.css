@@ -5223,3 +5223,46 @@ additional pages
 .alert-error, .alert-error h5 {
   color: red;
 }
+
+/*
+Mi CSS
+*/
+
+/*
+para el PREVIEW component
+**/
+.view {
+  height: 100vh;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  border: 1px solid red;
+}
+
+
+.width-400 {
+  width: 450px;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  text-align: center;
+}
+
+.viewcontent {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 1rem;
+  justify-content: space-evenly;
+  margin: auto;
+  max-width: 1020px; 
+  width: 100%; 
+  border: 4px solid black;
+}
+.video-container {
+  aspect-ratio: 16/9;
+  width: 500px;
+}
+
+.video-container_1_1 {
+  aspect-ratio: 1/1;
+}

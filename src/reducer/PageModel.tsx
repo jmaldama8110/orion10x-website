@@ -52,6 +52,7 @@ export type teamMemberType = {
 export type valueParagraphType = {
     title: string
     description: string
+    iconUrl: string
 }
 export type ThreeColorTextType = {
     leftText: string
@@ -83,6 +84,18 @@ export type BlogEntryType = {
     dateIssued: string
     description: string
     imageUrl: string
+}
+export type TestimonialEntryType = {
+    quote: string;
+    selfiUrl: string;
+    displayName: string;
+    position: string;
+}
+
+export type FaqEntryType = {
+    question: string
+    description: string
+    videoUrl: string
 }
 
 export interface iPageData {
@@ -198,6 +211,33 @@ export interface iPageData {
         copyrightAuthor: string
         playstoreButton: PlaystoreButton
         appstoreButton: PlaystoreButton
+    },
+    painAgitationSection: {
+        subjectBullet: string;
+        title: twoColorTitleType;
+        videoUrl: string;
+        paragrap01: ThreeColorTextType;
+        paragrap02: ThreeColorTextType;
+        paragrap03: ThreeColorTextType;
+        paragrap04: ThreeColorTextType;
+    },
+    benefitsSection: {
+        title: twoColorTitleType;
+        benefitsList: valueParagraphType[]
+    },
+    testimonialSection: {
+        title: twoColorTitleType;
+        testimonialsList: TestimonialEntryType []
+    },
+    featuresSection: {
+        title: twoColorTitleType;
+        featuresList: valueParagraphType[]
+    },
+    faqSection: {
+        title: twoColorTitleType;
+        paragraphTitle: twoColorTitleType;
+        description: string;
+        faqList: FaqEntryType []
     }
     
 }
@@ -359,10 +399,38 @@ export const PageDataDefault: iPageData = {
         },
         appstoreButton: {
             label: '', storeName: '', url: ''
-        }
+        },
         
+        
+    },
+    painAgitationSection: {
+        title: { textLeft: '', textRight: ""},
+        subjectBullet: '',
+        videoUrl: '',
+        paragrap01: { leftText: "", centerText: "", rightText: ""},
+        paragrap02: { leftText: "", centerText: "", rightText: ""},
+        paragrap03: { leftText: "", centerText: "", rightText: ""},
+        paragrap04: { leftText: "", centerText: "", rightText: ""},
+    },
+    benefitsSection: {
+        title: { textLeft: "", textRight: ""},
+        benefitsList: []
+    },
+    testimonialSection: {
+        title: { textLeft: "", textRight: ""},
+        testimonialsList: []
+    },
+    featuresSection: {
+        title: { textLeft: "", textRight: ""},
+        featuresList: []
+    },
+    faqSection: {
+        title: { textLeft: "", textRight: ""},
+        paragraphTitle: { textLeft: "", textRight: ""},
+        description: "",
+        faqList: []
     }
-
+    
 }
 
 

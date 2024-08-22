@@ -9,15 +9,14 @@ import "./css/BackgroundSlider.css";
 import { Autoplay, EffectFade } from "swiper/modules";
 import { iPageData, slideItemType } from "../reducer/PageModel";
 
-export const BackgroudSlider: React.FC< {data: iPageData}> = ( { data } ) => {
-    return (
-    
-        <Swiper
-            modules={[Autoplay,EffectFade]}
-            speed={2500}
-            
-            autoplay={{ delay:4000, waitForTransition: true }}
-        allowTouchMove={false}
+export const BackgroudSlider: React.FC<{ data: iPageData }> = ({ data }) => {
+  return (
+
+    <Swiper
+      modules={[Autoplay, EffectFade]}
+      speed={2500}
+      autoplay={{ delay: 4000, waitForTransition: true }}
+      allowTouchMove={false}
       className="central-swiper"
     >
       {
@@ -27,8 +26,8 @@ export const BackgroudSlider: React.FC< {data: iPageData}> = ( { data } ) => {
           </SwiperSlide>
         ))
       }
-      </Swiper>
-      
-      
+    </Swiper>
+
+
   );
 }

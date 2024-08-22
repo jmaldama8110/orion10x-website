@@ -11,6 +11,8 @@ node_modules
 dist
 dist-ssr
 *.local
+# ignore videos folder
+/src/assets/videos
 
 # Editor directories and files
 .vscode/*

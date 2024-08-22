@@ -63,7 +63,7 @@ export const Cover: React.FC<{ data: iPageData }> = ({ data }) => {
                   {data.introSection.twoColorTitle.textRight}
                 </span>
               </span>
-              <h1 className="mil-mb-60" style={{ fontSize: "32px" }}>
+              <h1 className="mil-mb-60">
                 <span className="mil-uppercase mil-light">
                   {data.introSection.largeTitle}
                 </span>{" "}
@@ -81,7 +81,12 @@ export const Cover: React.FC<{ data: iPageData }> = ({ data }) => {
                     <span>{data.introSection.button.label}</span>
                   </a>
                 </div>
-                <p className="mil-button-descr mil-light-soft">
+                <p className="mil-button-descr mil-light-soft"
+                style={{
+                
+                marginTop: "0.7rem"
+                }}
+                >
                   {" "}
                   {data.introSection.ctaDescription}
                 </p>
