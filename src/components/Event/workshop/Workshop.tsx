@@ -162,7 +162,7 @@ export const Workshop = () => {
                                     <li><span className="mil-light" id="calculated-schedule-time"></span></li>
                                 </ul >
 
-                                <p className="mil-light-soft mil-mb-120">Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Quis ipsum suspendisse ultrices gravida risus commodo viverra maecenas.</p>
+                                <p className="mil-light-soft mil-mb-120">{webinarElement.teacherDescription}</p>
 
                             </div>
                             <div className="col-xl-5 mil-relative">
