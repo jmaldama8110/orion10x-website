@@ -6,7 +6,6 @@ import icon01 from '../assets/icons/md/1.svg';
 
 import { IconListItem, valueParagraphType } from '../reducer/PageModel';
 
-
 export const Services = () => {
 
     const { pageData }: any = useLoaderData();
