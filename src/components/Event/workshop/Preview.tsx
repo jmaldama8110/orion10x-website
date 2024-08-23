@@ -2,12 +2,11 @@ import { useLoaderData } from "react-router-dom";
 import api from "../../../api/api";
 import { useEffect, useRef, useState } from "react";
 import { calculateNextEventDate, calculateTimeDifference } from "../../../utils/dateDiff";
-import videoIntro from "../../../assets/videos/final_jaime.mp4";
-import videoMain from "../../../assets/videos/fabian-final.mp4";
 
 export interface iContent {
     title: string
     introVideoUrl: string
+    mainVideoUrl: string
     eventDate: Date
 }
 
@@ -80,10 +79,13 @@ export const Preview = () => {
             {!eventStart &&
                 <div className="viewcontent">
 
-                    <div className="video-container">
-                        <video width="100%" height="auto" controls>
-                            <source src={videoIntro}></source>
-                        </video>
+                    <div className="video-container_1_1">
+                        <iframe
+                            src={previewInfo.introVideoUrl}
+                            allow="autoplay;fullscreen; picture-in-picture; clipboard-write"
+                            style={{ width: "100%", height: "100%" }} title="final_jaime">
+                        </iframe>
+                        <script src="https://player.vimeo.com/api/player.js"></script>
                     </div>
 
                     <div className="width-400">
@@ -105,20 +107,20 @@ export const Preview = () => {
                 </div>}
             {eventStart &&
                 <div className="viewcontent">
-                    {/* <div className="videocontainer">
+                    <div className="video-container_1_1">
                         <iframe
-                            src="https://player.vimeo.com/video/995485947?badge=0&amp;autopause=0&amp;player_id=0&amp;app_id=58479" 
-                            allow="autoplay;fullscreen; picture-in-picture; clipboard-write" 
-                            style={{ width: "100%", height:"100%"}} title="final_jaime">
+                            src={previewInfo.mainVideoUrl}
+                            allow="autoplay;fullscreen; picture-in-picture; clipboard-write"
+                            style={{ width: "100%", height: "100%" }} title="final_jaime">
                         </iframe>
                         <script src="https://player.vimeo.com/api/player.js"></script>
-                    </div> */}
+                    </div>
 
-                    <div className="videocontainer">
+                    {/* <div className="videocontainer">
                         <video width={"100%"} height={"auto"} autoPlay>
                             <source src={videoMain}></source>
                         </video>
-                    </div>
+                    </div> */}
                 </div>
             }
 
