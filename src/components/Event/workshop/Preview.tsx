@@ -107,7 +107,7 @@ export const Preview = () => {
                 </div>}
             {eventStart &&
                 <div className="viewcontent">
-                    <div className="video-container_1_1">
+                    <div className="video-container">
                         <iframe
                             src={previewInfo.mainVideoUrl}
                             allow="autoplay;fullscreen; picture-in-picture; clipboard-write"
