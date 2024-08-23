@@ -211,31 +211,37 @@ export const Workshop = () => {
                             <h4 className="mil-mb-30">{webinarElement.whatLearnTitle}</h4>
 
                             <ul className="mil-check-icon-list mil-mb-60">
+                                {webinarElement.benefit01 &&
                                 <li className="mil-mb-30">
                                     <img src={iconSm12} alt="icon" />
                                     <span className="mil-dark">{webinarElement.benefit01}</span>
-                                </li>
+                                </li>}
+                                {webinarElement.benefit02 &&
                                 <li className="mil-mb-30">
                                     <img src={iconSm12} alt="icon" />
                                     <span className="mil-dark">{webinarElement.benefit02}</span>
-                                </li>
+                                </li>}
 
+                                {webinarElement.benefit03 &&
                                 <li className="mil-mb-30">
                                     <img src={iconSm12} alt="icon" />
                                     <span className="mil-dark">{webinarElement.benefit03}</span>
-                                </li>
+                                </li>}
+                                {webinarElement.benefit04&&
                                 <li className="mil-mb-30">
                                     <img src={iconSm12} alt="icon" />
                                     <span className="mil-dark">{webinarElement.benefit04}</span>
-                                </li>
+                                </li>}
+                                {webinarElement.benefit05&&
                                 <li className="mil-mb-30">
                                     <img src={iconSm12} alt="icon" />
                                     <span className="mil-dark">{webinarElement.benefit05}</span>
-                                </li>
+                                </li>}
+                                {webinarElement.benefit06&&
                                 <li className="mil-mb-30">
                                     <img src={iconSm12} alt="icon" />
                                     <span className="mil-dark">{webinarElement.benefit06}</span>
-                                </li>
+                                </li>}
 
 
                             </ul>
