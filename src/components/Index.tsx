@@ -37,7 +37,7 @@ export const Index = () => {
                 <div className="mil-divider"></div>
             </div>
 
-            <Testimonials data={pageData} />
+            {/* <Testimonials data={pageData} /> */}
             <Features data={pageData} />
             <Faq data={pageData} />
             <div style={{ textAlign: "center" }} onClick={onCallToActionClick}>
