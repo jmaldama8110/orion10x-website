@@ -4,16 +4,8 @@ import { Outlet, useLoaderData } from "react-router-dom";
 import api from "../api/api";
 import { PageDataDefault } from "../reducer/PageModel";
 import { Header } from "./Header";
-import { BackgroudSlider } from "./BackgroundSlider";
-import { Cover } from "./Cover";
 import "./css/Components.css";
-import { PainAgitationSection } from "./PainAgitation";
-import { Benefits } from "./Benefits";
-import { Testimonials } from "./Testimonials";
-import { Features } from "./Features";
-import { Faq } from "./Faq";
 import { Footer } from "./Footer";
-
 
 
 export async function loader() {
@@ -107,6 +99,7 @@ async function loadFromApi() {
                 metaDescription: attributes.metaData.metaDescription,
                 metaTitle: attributes.metaData.metaTitle,
                 logoUrl: attributes.metaData.logoUrl,
+                demoVideoUrl: attributes.metaData.demoVideoUrl
             },
             backgroundSlides,
             introSection: {
@@ -327,11 +320,35 @@ export const Home = () => {
 
     const { pageData }: any = useLoaderData();
 
+
+    function onCloseModal() {
+        const modal: HTMLDialogElement = document.getElementById("modal") as HTMLDialogElement;
+        const demoVideoEl: HTMLIFrameElement = document.getElementById("demo-video-element") as HTMLIFrameElement;
+        if(demoVideoEl && demoVideoEl.src == pageData.metaData.demoVideoUrl ){
+            
+           demoVideoEl.src = ''
+        }
+
+        modal.close();
+    }
+
     return (
         <>
             <Header data={pageData} />
 
             <Outlet />
+            <dialog className="modal" id="modal">
+                <div className="video-container-full">
+                    <iframe
+                        src={pageData.metaData.demoVideoUrl}
+                        allow="autoplay;fullscreen; picture-in-picture; clipboard-write"
+                        style={{ width: "100%", height: "100%" }} title="final_jaime" id="demo-video-element">
+                        
+                    </iframe>
+                    <script src="https://player.vimeo.com/api/player.js"></script>
+                </div>
+                <button onClick={onCloseModal}>Cerrar</button>
+            </dialog>
             <Footer data={pageData} />
         </>
 

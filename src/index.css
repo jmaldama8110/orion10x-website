@@ -5262,7 +5262,27 @@ para el PREVIEW component
   aspect-ratio: 16/9;
   width: 500px;
 }
+.video-container-full {
+  aspect-ratio: 16/9;
+  max-height: 400px;
+  margin: auto
+}
 
 .video-container_1_1 {
   aspect-ratio: 1/1;
+  
+}
+
+/* FOR MODAL*/
+
+.modal {
+  padding: 1em;
+  margin: auto;
+  width: 100%;
+ text-align: center; 
+  box-shadow: 0 0 1em rgb(0 0 0 / 0.3);
+  border-radius: 4px;
+}
+.modal::backdrop {
+  background: rgb(0 0 0 / .6);
 }

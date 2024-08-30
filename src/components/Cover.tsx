@@ -3,47 +3,16 @@ import { iPageData } from "../reducer/PageModel";
 
 
 export const Cover: React.FC<{ data: iPageData }> = ({ data }) => {
-    
-    async function onCallToActionClick() {
-      
-    // const sendGridApiKey = import.meta.env.VITE_SENDGRID_API_KEY
-    //   ? import.meta.env.VITE_SENDGRID_API_KEY
-    //   : "";
-    // const sendGridApiUrl = import.meta.env.VITE_SENDGRID_BASE_URL
-    //   ? import.meta.env.VITE_SENDGRID_BASE_URL
-    //   : "";
-    // console.log(sendGridApiKey);
-    // console.log(sendGridApiUrl);
 
-    // sgMail.setApiKey(sendGridApiKey);
+  async function onCallToActionClick() {
+    const modal: HTMLDialogElement = document.getElementById("modal") as HTMLDialogElement;
+    const demoVideoEl: HTMLIFrameElement = document.getElementById("demo-video-element") as HTMLIFrameElement;
 
-    // try {
-    //   const api = axios.create({
-    //     method: "post",
-    //     url: "/v3/mail/send",
-    //     baseURL: sendGridApiUrl,
-    //     headers: {
-    //       "content-type": "application/json",
-    //       Authorization: `Bearer ${sendGridApiKey}`,
-    //     },
-    //   });
-    //   await api.post("/v3/mail/send", {
-    //     from: { email: "jm@orion10x.net" },
-    //     personalizations: [
-    //       {
-    //         to: [
-    //           { email: "josman.gomez.aldama@gmail.com" },
-    //           { email: "jm@orion10x.net" },
-    //         ],
-    //         dynamic_template_data: {},
-    //       },
-    //     ],
-    //     template_id: "d-59e677f1fe0b4aeea317fb1d9ea97cdd",
-    //   });
-    // } catch (e) {
-    //     console.log(e);
-    //     alert('Algo salio mal')
-    // }
+
+    if (demoVideoEl.src != data.metaData.demoVideoUrl) {
+      demoVideoEl.src = data.metaData.demoVideoUrl
+    }
+    modal.showModal();
   }
 
   return (
@@ -82,11 +51,7 @@ export const Cover: React.FC<{ data: iPageData }> = ({ data }) => {
                   </a>
                 </div>
                 <p className="mil-button-descr mil-light-soft"
-                style={{
-                
-                marginTop: "0.7rem"
-                }}
-                >
+                  style={{ marginTop: "0.7rem" }}>
                   {" "}
                   {data.introSection.ctaDescription}
                 </p>
@@ -161,7 +126,9 @@ export const Cover: React.FC<{ data: iPageData }> = ({ data }) => {
             </div>
           </div>
         </div>
+
       </div>
+
     </div>
   );
 };

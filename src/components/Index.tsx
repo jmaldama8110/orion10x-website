@@ -10,6 +10,16 @@ import { Faq } from "./Faq";
 export const Index = () => {
 
     const { pageData }: any = useLoaderData();
+    async function onCallToActionClick() {
+        const modal: HTMLDialogElement = document.getElementById("modal") as HTMLDialogElement;
+        const demoVideoEl: HTMLIFrameElement = document.getElementById("demo-video-element") as HTMLIFrameElement;
+    
+    
+        if (demoVideoEl.src != pageData.metaData.demoVideoUrl) {
+          demoVideoEl.src = pageData.metaData.demoVideoUrl
+        }
+        modal.showModal();
+      }
 
     return (
         <>
@@ -30,8 +40,8 @@ export const Index = () => {
             <Testimonials data={pageData} />
             <Features data={pageData} />
             <Faq data={pageData} />
-            <div style={{ textAlign: "center" }}>
-                <a href="#." className="mil-button mil-border mil-mb-30" style={{ width: "300px" }}><span>{pageData.introSection.button.label}</span></a>
+            <div style={{ textAlign: "center" }} onClick={onCallToActionClick}>
+                <a className="mil-button mil-border mil-mb-30" style={{ width: "300px" }}><span>{pageData.introSection.button.label}</span></a>
             </div>
 
         </>

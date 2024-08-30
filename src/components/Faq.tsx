@@ -8,10 +8,13 @@ export const Faq: React.FC<{ data: iPageData }> = ({ data }) => {
     return (
 
         <section className="mil-faqs mil-p-0-120">
+
+
             <div className="mil-deco" style={{ bottom: "0", left: "10%", transform: "rotate(180deg)" }}></div>
             <div className="container">
 
                 <div className="mil-tabs">
+
                     <h2>{data.faqSection.title.textLeft} <span className="mil-accent">{data.faqSection.title.textRight}</span></h2>
                     <div className="mil-tab" style={{ display: "block" }}>
 

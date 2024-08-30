@@ -10,7 +10,8 @@ export type ActionPageType =
 export type metaDataType = {
     metaTitle: string
     metaDescription: string
-    logoUrl: string
+    logoUrl: string,
+    demoVideoUrl: string;
 }
 export type menuItemType = {
     position: number
@@ -249,7 +250,8 @@ export const PageDataDefault: iPageData = {
     metaData: {
         metaDescription: '',
         logoUrl: '',
-        metaTitle: ''
+        metaTitle: '',
+        demoVideoUrl: ''
     },
     menu: [],
     backgroundSlides: [],

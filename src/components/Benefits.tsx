@@ -14,7 +14,7 @@ export const Benefits: React.FC<{ data: iPageData }> = ({ data }) => {
                         {
                             data.benefitsSection.benefitsList.filter( (w:valueParagraphType,n) => n%2 == 0 )
                             .map((x: valueParagraphType,position) => (
-                                <>
+                                <div key={position}>
                                     <div className="mil-divider mil-divider-left"></div>
                                     <div className="mil-service-item">
                                         <div className="mil-service-icon">
@@ -28,7 +28,7 @@ export const Benefits: React.FC<{ data: iPageData }> = ({ data }) => {
                                         </div>
                                     </div>
 
-                                </>
+                                </div>
                             ))
 
                         }
@@ -38,7 +38,7 @@ export const Benefits: React.FC<{ data: iPageData }> = ({ data }) => {
                         {
                             data.benefitsSection.benefitsList.filter( (w:valueParagraphType,n:number) => n%2 == 1 )
                             .map((x: valueParagraphType, position) => (
-                                <>
+                                <div key={position}>
                                     <div className="mil-divider mil-divider-left"></div>
                                     <div className="mil-service-item">
                                         <div className="mil-service-icon">
@@ -52,7 +52,7 @@ export const Benefits: React.FC<{ data: iPageData }> = ({ data }) => {
                                         </div>
                                     </div>
 
-                                </>
+                                </div>
                             ))
 
                         }

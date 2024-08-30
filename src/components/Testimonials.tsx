@@ -78,7 +78,6 @@ export const Testimonials: React.FC<{ data: iPageData }> = ({ data }) => {
                             <br/>
                         <p className="mil-light mil-mb-30">+100 calificacione positivas en Google</p>
                         <h2 className="mil-light mil-mb-30"><span className="mil-accent">Visita</span> Nuestro Canal</h2>
-                        <p className="mil-light-soft mil-mb-60">It is a long established fact that a reader will be distracted by the readable content <br /> of a page when looking at its layout.</p>
                         <a href="https://www.youtube.com/@Orion-10x" className="mil-button-with-label " style={{marginBottom: "2rem"}}>
                             <div className="mil-button mil-border mil-icon-button mil-light"><span><FontAwesomeIcon icon={faPlay} size="2x" /></span></div><span className="mil-light">Ver Videos</span>
                         </a>
