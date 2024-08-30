@@ -5278,7 +5278,7 @@ para el PREVIEW component
 .modal {
   padding: 1em;
   margin: auto;
-  width: 100%;
+  width: 50ch;
  text-align: center; 
   box-shadow: 0 0 1em rgb(0 0 0 / 0.3);
   border-radius: 4px;
