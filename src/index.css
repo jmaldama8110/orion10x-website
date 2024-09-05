@@ -5235,8 +5235,7 @@ para el PREVIEW component
   height: 100vh;
   display: flex;
   flex-direction: column;
-  justify-content: center;
-  border: 1px solid red;
+  justify-content: center; 
 }
 
 
@@ -5256,7 +5255,7 @@ para el PREVIEW component
   margin: auto;
   max-width: 1020px; 
   width: 100%; 
-  border: 4px solid black;
+  padding: 0.5rem;
 }
 .video-container {
   aspect-ratio: 16/9;

@@ -12,7 +12,7 @@ export interface iContent {
 
 export async function loader({ params }: any) {
     const previewInfo: iContent = await getDataFromApi(params.token, params.eventId);
-
+    console.log(previewInfo);
     const timeDiff = calculateTimeDifference(new Date().toISOString(), new Date(previewInfo.eventDate).toISOString());
     if (timeDiff.seconds < 0) {
         throw new Error('Este evento ya vencio!')
@@ -79,7 +79,7 @@ export const Preview = () => {
             {!eventStart &&
                 <div className="viewcontent">
 
-                    <div className="video-container_1_1">
+                    <div className="video-container">
                         <iframe
                             src={previewInfo.introVideoUrl}
                             allow="autoplay;fullscreen; picture-in-picture; clipboard-write"

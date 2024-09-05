@@ -143,7 +143,7 @@ export const Workshop = () => {
 
 
             <div className="mil-banner-sm-3">
-                <img src={imgBackgroundMain} className="mil-background-image" style={{ objectPosition: "center" }} data-swiper-parallax="-100" data-swiper-parallax-scale="1.1" alt="image" />
+                <img src={webinarElement.backgroundImage} className="mil-background-image" style={{ objectPosition: "center" }} data-swiper-parallax="-100" data-swiper-parallax-scale="1.1" alt="image" />
                 <div className="mil-overlay"></div>
                 <div className="mil-banner-content">
                     <div className="container mil-relative">
