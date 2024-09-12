@@ -1,7 +1,8 @@
-import { useLoaderData } from "react-router-dom";
+import { redirect, useLoaderData } from "react-router-dom";
 import api from "../../../api/api";
 import { useEffect, useRef, useState } from "react";
 import { calculateNextEventDate, calculateTimeDifference } from "../../../utils/dateDiff";
+
 
 export interface iContent {
     title: string
@@ -12,11 +13,14 @@ export interface iContent {
 
 export async function loader({ params }: any) {
     const previewInfo: iContent = await getDataFromApi(params.token, params.eventId);
-    console.log(previewInfo);
-    const timeDiff = calculateTimeDifference(new Date().toISOString(), new Date(previewInfo.eventDate).toISOString());
-    if (timeDiff.seconds < 0) {
-        throw new Error('Este evento ya vencio!')
+
+    //// damos un tiempo vida apartir del inicio del evento
+    const timeDiff = new Date().getTime() - new Date(previewInfo.eventDate).getTime() 
+    //// 2 hours of in miliseconds 1 seg = 1000ms 60s * 60min * 2 = 
+    if ( timeDiff > 7200000 ) {
+        throw new Error('Ooops al parecer este evento ya vencio!')
     }
+
     return { previewInfo };
 }
 
@@ -24,10 +28,18 @@ async function getDataFromApi(token: string, id: number) {
 
     try {
         api.defaults.headers.common["Authorization"] = `Bearer ${token}`;
-
         const eventData = await api.get(`/api/events/${id}`)
-        const contentData = await api.get(`/api/contents/${eventData.data.data.attributes.contentId}`);
-        const attributes: iContent = contentData.data.data.attributes;
+
+        const str = [
+            `filters[id][$eq]=${eventData.data.data.attributes.contentId}&`,
+            "populate[0]=ctaTitle&",
+            "populate[1]=ctaFinalMessage&",
+            "populate[2]=plans.itemsList"];
+        const qs = `/api/contents?${str.join("")}`;
+        const contentData = await api.get(qs);
+
+        const attributes: iContent = contentData.data.data[0].attributes;
+        console.log(attributes);
         return { ...attributes, eventDate: eventData.data.data.attributes.datetime };
     }
     catch (e) {
@@ -41,10 +53,34 @@ export const Preview = () => {
     const timer = useRef(0);
 
     const [eventStart, setEventStart] = useState(false);
+    const [eventEnded, setEventEnded] = useState(false);
+    
 
     useEffect(() => {
-        console.log('timer id: ', timer.current)
+
+        // const input: HTMLInputElement = document.getElementById("telmobileinput") as HTMLInputElement;
+        // const buttonEL: HTMLButtonElement = document.getElementById("dialog-cta-button") as HTMLButtonElement;
+        // buttonEL.disabled = true;
+        
+        // input.addEventListener("input", (e:any) => {
+        //     const re = new RegExp(/(\d{0,3})(\d{0,3})(\d{0,4})/)
+        //     var x = e.target.value.replace(/\D/g, '').match(re);
+        //     e.target.value = !x[2] ? x [1] : '(' + x[1] + ') ' + x[2] + (x[3] ? '-' + x[3] : '');
+        //     if( e.target.value.length == 14){
+        //         buttonEL.disabled = false;
+        //     }
+            
+        // });
+        
+        
         if (previewInfo.eventDate) {
+
+            /// when loader, checks wether events has started already
+            const timeDiff = new Date().getTime() - new Date(previewInfo.eventDate).getTime() 
+            if ( timeDiff > 0 ) {
+                setEventStart(true);
+            }
+        
             const endDate = calculateNextEventDate(new Date(previewInfo.eventDate), 1);
             timer.current = setInterval(() => {
                 const difference = calculateTimeDifference(new Date().toISOString(), endDate.toISOString());
@@ -70,63 +106,178 @@ export const Preview = () => {
             console.log('Killed timer: ', timer.current)
             clearInterval(timer.current)
         }
-    }, [])
+    }, []);
 
-    return (
+    async function onCtaClick(e: any) {
+        
+        toggleSpinner(e.target.id);
 
-        <div className="view">
+        setTimeout(() => {
+            onOpenModal();
+        }, 1000)
+    }
 
-            {!eventStart &&
-                <div className="viewcontent">
+    function toggleSpinner(id: string) {
+        const buttonElId = `previewctaoffer_${id.split("_")[1]}`
+        const el = document.getElementById(buttonElId);
+        if (el) {
+            if (el.firstElementChild) {
+                if (el.firstElementChild.nodeName === "SPAN") {
+                    const divEl = document.createElement("div");
+                    divEl.classList.toggle("spinner")
+                    el.replaceChild(divEl, el.firstElementChild);
+                }
 
-                    <div className="video-container">
-                        <iframe
-                            src={previewInfo.introVideoUrl}
-                            allow="autoplay;fullscreen; picture-in-picture; clipboard-write"
-                            style={{ width: "100%", height: "100%" }} title="final_jaime">
-                        </iframe>
-                        <script src="https://player.vimeo.com/api/player.js"></script>
-                    </div>
-
-                    <div className="width-400">
-
-                        <h4>{previewInfo.title}</h4>
-                        <p>Inicia en: <span id="calculated-schedule"></span></p>
-                        <p>{previewInfo ? (new Date(previewInfo.eventDate)).toLocaleDateString("es-MX", {
-                            weekday: "long",
-                            year: "numeric",
-                            month: "long",
-                            day: "numeric",
-                        }) : ''} </p>
-                        <p>
-                            {(new Date(previewInfo.eventDate)).toTimeString()}
-                        </p>
-
-                    </div>
-
-                </div>}
-            {eventStart &&
-                <div className="viewcontent">
-                    <div className="video-container">
-                        <iframe
-                            src={previewInfo.mainVideoUrl}
-                            allow="autoplay;fullscreen; picture-in-picture; clipboard-write"
-                            style={{ width: "100%", height: "100%" }} title="final_jaime">
-                        </iframe>
-                        <script src="https://player.vimeo.com/api/player.js"></script>
-                    </div>
-
-                    {/* <div className="videocontainer">
-                        <video width={"100%"} height={"auto"} autoPlay>
-                            <source src={videoMain}></source>
-                        </video>
-                    </div> */}
-                </div>
             }
 
+        }
+    }
 
-        </div>
+    useEffect(() => {
+        let counter = 0;
+        if (eventStart) {
+            setInterval(() => {
+                counter = counter + 1;
+                if (counter == previewInfo.duration) {
+                    setEventEnded(true);
+                }
+            }, 300)
+        }
+    }, [eventStart])
 
+    async function onOpenModal() {
+        const modal: HTMLDialogElement = document.getElementById("modal-preview") as HTMLDialogElement;
+        modal.showModal();
+    }
+
+    return (
+        <>
+
+            <div className="view">
+
+                {!eventStart &&
+                    <div className="viewcontent">
+
+                        <div className="video-container mil-mt-60">
+                            <iframe
+                                src={previewInfo.introVideoUrl}
+                                allow="autoplay;fullscreen; picture-in-picture; clipboard-write"
+                                style={{ width: "100%", height: "100%" }} title="final_jaime">
+                            </iframe>
+                            <script src="https://player.vimeo.com/api/player.js"></script>
+                        </div>
+
+                        <div className="width-400 mil-mt-60">
+
+                            <h4>{previewInfo.title}</h4>
+                            <p>Inicia en: <span id="calculated-schedule" className="mil-accent"></span></p>
+                            <p>{previewInfo ? (new Date(previewInfo.eventDate)).toLocaleDateString("es-MX", {
+                                weekday: "long",
+                                year: "numeric",
+                                month: "long",
+                                day: "numeric",
+                            }) : ''} </p>
+                            <p>
+                                {(new Date(previewInfo.eventDate)).toTimeString()}
+                            </p>
+
+                        </div>
+
+                    </div>}
+                {eventStart &&
+                    <>
+                        <h2 className="mil-text-center">{previewInfo.title}</h2>
+                        <div className="viewcontent">
+                            <div className="video-container">
+                                <iframe
+                                    src={previewInfo.mainVideoUrl}
+                                    allow="autoplay;fullscreen; picture-in-picture; clipboard-write"
+                                    style={{ width: "100%", height: "100%" }} title="final_jaime">
+                                </iframe>
+                                <script src="https://player.vimeo.com/api/player.js"></script>
+                            </div>
+
+                        </div>
+
+                    </>
+
+                }
+
+
+            </div>
+
+            {eventEnded &&
+                <section className="mil-prices mil-p-120-0">
+                    <div className="container">
+                        <h3 className="mil-text-center mil-mb-60 mil-mt-30">{previewInfo.ctaTitle.leftText} <span className="mil-accent">{previewInfo.ctaTitle.centerText} </span>{previewInfo.ctaTitle.rightText}</h3>
+
+                        <div className="row">
+                            {
+                                previewInfo.plans.map((plan: any, pos: number) =>
+                                (
+
+                                    <div className="col-xl-4" key={pos}>
+
+                                        <div className="mil-hover-card mil-price-card mil-mb-30">
+                                            <p className="mil-mb-15">{plan.title}</p>
+                                            <h2>{plan.name}</h2>
+                                            <div className="mil-plan-price mil-mb-15">
+                                                <h3 className="mil-accent">{plan.price}</h3><span>{plan.frequency}</span>
+                                            </div>
+                                            <p className="mil-text-sm mil-mb-60">{plan.priceNote}</p>
+                                            <button className="mil-button mil-border mil-fw mil-mb-60" id={`previewctaoffer_${pos}-${plan.name}`} onClick={onCtaClick}>
+                                                <span id={`previewspan_${pos}-${plan.name}`} onClick={onCtaClick}>{plan.ctaText}</span>
+                                            </button>
+
+                                            <ul className="mil-check-list">
+                                                {
+                                                    plan.itemsList.map((i: any, n: number) => (
+                                                        <li key={n} className={i.strike ? "mil-empty" : ""}>{i.description}</li>
+                                                    ))
+                                                }
+
+                                            </ul>
+                                        </div>
+
+                                    </div>
+
+                                )
+                                )
+
+                            }
+
+
+
+                            <div className="col-lx-12 mil-p-90-60">
+                                <h3 className="mil-text-center">{previewInfo.ctaFinalMessage.leftText}<span className="mil-accent"> {previewInfo.ctaFinalMessage.centerText}</span> {previewInfo.ctaFinalMessage.rightText}</h3>
+                                <p className="mil-text-center">{previewInfo.ctaFinalText}</p>
+                            </div>
+
+                        </div>
+                    </div>
+                    <dialog className="modal" id="modal-preview">
+                        <form id="formEvent" className="mil-event-form" >
+                            <h4 className="mil-mb-60 mil-text-center">¿Cómo te podemos contactar?</h4>
+
+                            <div className="mil-input-frame mil-dark-input mil-mb-30">
+                                <label className="mil-h6 mil-dark"><span>Teléfono de contacto</span></label>
+                                <input type="text" name="fullname" required placeholder="(999)-999-99-99" id="telmobileinput" />
+                            </div>
+
+                            <div className="mil-input-frame mil-dark-input mil-mb-30">
+                                <label className="mil-h6 mil-dark"><span>Indica un horario</span></label>
+                                <select>
+                                    <option>Mañana</option>
+                                    <option>Tarde</option>
+                                </select>
+                            </div>
+
+                            <button className="mil-button mil-border mil-fw" id="dialog-cta-button"><span>Quiero que llamen!</span></button>
+
+                        </form>
+                    </dialog>
+                </section>}
+        </>
 
 
     );

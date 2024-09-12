@@ -1,9 +1,8 @@
 
 import { Form, redirect, useLoaderData } from "react-router-dom";
 import api from "../../../api/api";
-import imgBackgroundMain from '../../../assets/photo/13.jpg';
 import { TwoColorTitle } from "../TwoColorTitle";
-import { useEffect } from "react";
+import { useEffect, useState } from "react";
 import { calculateNextEventDate, calculateTimeDifference } from "../../../utils/dateDiff";
 import iconSm12 from "../../../assets/icons/sm/12.svg";
 import iconFace1 from "../../../assets/faces/jm-selfi.jpg"
@@ -103,13 +102,16 @@ export const Workshop = () => {
     const { webinarElement }: any = useLoaderData();
     /// valores no cambian, por tanto pueden ir aqui
     const currentTime = new Date();
-    const proposedDate = calculateNextEventDate(currentTime, 5);
+    const proposedDate = calculateNextEventDate(currentTime, webinarElement.everyMinute);
 
     useEffect(() => {
         let idInterval = setInterval(() => {
             const difference = calculateTimeDifference(new Date().toISOString(), proposedDate.toISOString());
-            if (!difference.days && !difference.hours && !difference.minutes && !difference.seconds)
+            if (!difference.days && !difference.hours && !difference.minutes && !difference.seconds){
                 clearInterval(idInterval);
+                window.location.reload();
+
+            }
             const labelTime: HTMLElement | null = document.getElementById("calculated-schedule");
             if (labelTime) {
                 const daysText = difference.days ? `${difference.days} Día(s), ` : '';

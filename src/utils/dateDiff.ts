@@ -5,8 +5,8 @@ export function calculateTimeDifference(startDate: string, endDate: string):
     const end = new Date(endDate);
 
     // Calcular la diferencia en milisegundos
-    const differenceInMilliseconds = end.getTime() - start.getTime();
-
+    let differenceInMilliseconds = end.getTime() - start.getTime();
+    
     // Calcular la diferencia en días, horas, minutos y segundos
     const days = Math.floor(differenceInMilliseconds / (1000 * 60 * 60 * 24));
     const hours = Math.floor((differenceInMilliseconds % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));

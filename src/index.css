@@ -5232,12 +5232,11 @@ Mi CSS
 para el PREVIEW component
 **/
 .view {
-  height: 100vh;
   display: flex;
   flex-direction: column;
   justify-content: center; 
+  height: 30ch;
 }
-
 
 .width-400 {
   width: 450px;
@@ -5245,6 +5244,9 @@ para el PREVIEW component
   flex-direction: column;
   justify-content: center;
   text-align: center;
+  border: 1px solid gray;
+  border-radius: 4px;
+  line-height: 1.8rem;
 }
 
 .viewcontent {
@@ -5256,6 +5258,7 @@ para el PREVIEW component
   max-width: 1020px; 
   width: 100%; 
   padding: 0.5rem;
+
 }
 .video-container {
   aspect-ratio: 16/9;
@@ -5268,8 +5271,7 @@ para el PREVIEW component
 }
 
 .video-container_1_1 {
-  aspect-ratio: 1/1;
-  
+  aspect-ratio: 1/1; 
 }
 
 /* FOR MODAL*/
@@ -5281,6 +5283,7 @@ para el PREVIEW component
  text-align: center; 
   box-shadow: 0 0 1em rgb(0 0 0 / 0.3);
   border-radius: 4px;
+  height: 50ch;
 }
 .modal::backdrop {
   background: rgb(0 0 0 / .6);
