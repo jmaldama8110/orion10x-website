@@ -13,11 +13,10 @@ export interface iContent {
 
 export async function loader({ params }: any) {
     const previewInfo: iContent = await getDataFromApi(params.token, params.eventId);
-
     //// damos un tiempo vida apartir del inicio del evento
-    const timeDiff = new Date().getTime() - new Date(previewInfo.eventDate).getTime() 
-    //// 2 hours of in miliseconds 1 seg = 1000ms 60s * 60min * 2 = 
-    if ( timeDiff > 7200000 ) {
+    const timeDiff = new Date().getTime() - new Date(previewInfo.eventDate).getTime()
+    //// 2 hours of in miliseconds 1 seg = 1000ms 60s * 60min * 2hours 
+    if (timeDiff > 7200000) {
         throw new Error('Ooops al parecer este evento ya vencio!')
     }
 
@@ -39,8 +38,8 @@ async function getDataFromApi(token: string, id: number) {
         const contentData = await api.get(qs);
 
         const attributes: iContent = contentData.data.data[0].attributes;
-        console.log(attributes);
-        return { ...attributes, eventDate: eventData.data.data.attributes.datetime };
+        
+        return { ...attributes, eventDate: eventData.data.data.attributes.datetime,token,eventId:id };
     }
     catch (e) {
         throw new Error("oh algo salió mal!");
@@ -54,33 +53,18 @@ export const Preview = () => {
 
     const [eventStart, setEventStart] = useState(false);
     const [eventEnded, setEventEnded] = useState(false);
-    
+
 
     useEffect(() => {
 
-        // const input: HTMLInputElement = document.getElementById("telmobileinput") as HTMLInputElement;
-        // const buttonEL: HTMLButtonElement = document.getElementById("dialog-cta-button") as HTMLButtonElement;
-        // buttonEL.disabled = true;
-        
-        // input.addEventListener("input", (e:any) => {
-        //     const re = new RegExp(/(\d{0,3})(\d{0,3})(\d{0,4})/)
-        //     var x = e.target.value.replace(/\D/g, '').match(re);
-        //     e.target.value = !x[2] ? x [1] : '(' + x[1] + ') ' + x[2] + (x[3] ? '-' + x[3] : '');
-        //     if( e.target.value.length == 14){
-        //         buttonEL.disabled = false;
-        //     }
-            
-        // });
-        
-        
         if (previewInfo.eventDate) {
 
             /// when loader, checks wether events has started already
-            const timeDiff = new Date().getTime() - new Date(previewInfo.eventDate).getTime() 
-            if ( timeDiff > 0 ) {
+            const timeDiff = new Date().getTime() - new Date(previewInfo.eventDate).getTime()
+            if (timeDiff > 0) {
                 setEventStart(true);
             }
-        
+
             const endDate = calculateNextEventDate(new Date(previewInfo.eventDate), 1);
             timer.current = setInterval(() => {
                 const difference = calculateTimeDifference(new Date().toISOString(), endDate.toISOString());
@@ -108,8 +92,23 @@ export const Preview = () => {
         }
     }, []);
 
-    async function onCtaClick(e: any) {
+    function onPhoneInput(e: any) {
         
+        const buttonEL: HTMLButtonElement = document.getElementById("dialog-cta-button") as HTMLButtonElement;
+        buttonEL.disabled = true;
+
+        const re = new RegExp(/(\d{0,3})(\d{0,3})(\d{0,4})/)
+        var x = e.target.value.replace(/\D/g, '').match(re);
+        e.target.value = !x[2] ? x[1] : '(' + x[1] + ') ' + x[2] + (x[3] ? '-' + x[3] : '');
+        
+        if (e.target.value.length == 14) {
+            buttonEL.disabled = false;
+        }
+
+
+    }
+    async function onCtaClick(e: any) {
+
         toggleSpinner(e.target.id);
 
         setTimeout(() => {
@@ -148,6 +147,24 @@ export const Preview = () => {
     async function onOpenModal() {
         const modal: HTMLDialogElement = document.getElementById("modal-preview") as HTMLDialogElement;
         modal.showModal();
+    }
+
+    async function onCtaDialog(){
+            try {
+                api.defaults.headers.common["Authorization"] = `Bearer ${previewInfo.token}`;
+                const inputPhoneEl: HTMLInputElement = document.getElementById("input_phone_cta") as HTMLInputElement;
+
+                const res = await api.put(`/api/events/${previewInfo.eventId}`, {
+                    data:{
+                        phone: inputPhoneEl.value
+                    }
+                });
+                setEventEnded(false)
+            }
+            catch (e) {
+                console.log(e);
+                throw new Error('Mil disculpas, se presento un error!')
+            }
     }
 
     return (
@@ -256,12 +273,12 @@ export const Preview = () => {
                         </div>
                     </div>
                     <dialog className="modal" id="modal-preview">
-                        <form id="formEvent" className="mil-event-form" >
+                        <form id="formEvent" className="mil-event-form" method="dialog" >
                             <h4 className="mil-mb-60 mil-text-center">¿Cómo te podemos contactar?</h4>
 
                             <div className="mil-input-frame mil-dark-input mil-mb-30">
                                 <label className="mil-h6 mil-dark"><span>Teléfono de contacto</span></label>
-                                <input type="text" name="fullname" required placeholder="(999)-999-99-99" id="telmobileinput" />
+                                <input type="text" name="fullname" required placeholder="(999)-999-99-99" onChange={onPhoneInput} id="input_phone_cta"/>
                             </div>
 
                             <div className="mil-input-frame mil-dark-input mil-mb-30">
@@ -272,7 +289,7 @@ export const Preview = () => {
                                 </select>
                             </div>
 
-                            <button className="mil-button mil-border mil-fw" id="dialog-cta-button"><span>Quiero que llamen!</span></button>
+                            <button className="mil-button mil-border mil-fw" id="dialog-cta-button" onClick={onCtaDialog}><span>Quiero que llamen!</span></button>
 
                         </form>
                     </dialog>
