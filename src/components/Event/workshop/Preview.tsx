@@ -223,10 +223,10 @@ export const Preview = () => {
 
             </div>
 
-            {eventEnded &&
+            {
                 <section className="mil-prices mil-p-120-0">
                     <div className="container">
-                        <h3 className="mil-text-center mil-mb-60 mil-mt-30">{previewInfo.ctaTitle.leftText} <span className="mil-accent">{previewInfo.ctaTitle.centerText} </span>{previewInfo.ctaTitle.rightText}</h3>
+                        <h3 className="mil-text-center mil-mb-60 mil-mt-30 cta-border">{previewInfo.ctaTitle.leftText} <span className="mil-accent">{previewInfo.ctaTitle.centerText} </span>{previewInfo.ctaTitle.rightText}</h3>
 
                         <div className="row">
                             {

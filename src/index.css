@@ -5288,3 +5288,44 @@ para el PREVIEW component
 .modal::backdrop {
   background: rgb(0 0 0 / .6);
 }
+
+.cta-border {
+  margin: 0 auto;
+  max-width: 600px;
+  background: white;
+  text-align: center;
+  position: relative;
+  padding: 20px 
+}
+
+@property --angle{
+  syntax: "<angle>";
+  initial-value: 0deg;
+  inherits: false;
+}
+.cta-border::after, .cta-border::before{
+  content: "";
+  position: absolute;
+  height: 110%;
+  width: 103%;
+  background-image: conic-gradient(from var(--angle),transparent 70%, blue);
+  top: 50%;
+  left: 50%;
+  translate: -50% -50%;
+  z-index: -1;
+  border-radius: 10px;
+  animation: 3s vuelta linear infinite;
+}
+
+.cta-border::before {
+  filter: blur(1.5rem);
+  opacity: 0.4;
+}
+
+@keyframes vuelta {
+  from{
+    --angle: 0deg;
+  }to {
+    --angle: 360deg;
+  }
+}
