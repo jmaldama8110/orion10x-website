@@ -2,12 +2,26 @@
 import { Form, redirect, useLoaderData } from "react-router-dom";
 import api from "../../../api/api";
 import { TwoColorTitle } from "../TwoColorTitle";
-import { useEffect, useState } from "react";
+import { useEffect } from "react";
 import { calculateNextEventDate, calculateTimeDifference } from "../../../utils/dateDiff";
 import iconSm12 from "../../../assets/icons/sm/12.svg";
 import iconFace1 from "../../../assets/faces/jm-selfi.jpg"
 import iconFace2 from "../../../assets/faces/fabian-selfi.jpeg"
 import iconFace3 from "../../../assets/faces/jaime-selfi.jpeg"
+import odooReadyPartner from "../../../assets/odoo_ready_partners_rgb.png"
+
+import icon07 from '../../../assets/icons/md/7.svg';
+
+// Import Swiper styles
+import "swiper/css";
+import "swiper/css/navigation";
+import "swiper/css/pagination";
+import { Swiper, SwiperSlide } from 'swiper/react';
+import { Autoplay, EffectFade } from "swiper/modules";
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import { faPlay, faQuestionCircle, faStar } from "@fortawesome/free-solid-svg-icons";
+import { faGooglePlusSquare } from "@fortawesome/free-brands-svg-icons";
+
 
 
 interface iUpdates {
@@ -18,6 +32,7 @@ interface iUpdates {
 }
 export async function loader({ params }: any) {
     const webinarElement: any = await getLandingData(params.landingId);
+    console.log({ webinarElement: { ...webinarElement, landingId: params.landingId } })
     return { webinarElement: { ...webinarElement, landingId: params.landingId } };
 }
 export async function action({ request }: any) {
@@ -32,8 +47,19 @@ export async function action({ request }: any) {
 }
 
 async function getLandingData(id: number) {
-    const str = `filters[id][$eq]=${id}`;
-    const qs = `/api/landpages?${str}`;
+
+    const str = [
+        `filters[id][$eq]=${id}&`,
+        "populate[0]=heroSection.statsList&",
+        "populate[1]=heroSection.title&",
+        "populate[2]=benefitsSection.benefitsList&",
+        "populate[3]=benefitsSection.title&",
+        "populate[4]=testimonialSection.testimonialsList&",
+        "populate[5]=faqSection.title&",
+        "populate[6]=faqSection.paragraphTitle&",
+        "populate[7]=faqSection.faqList",
+    ];
+    const qs = `/api/landpages?${str.join("")}`;
     try {
         const response = await api.get(qs);
         const attributes = response.data.data[0].attributes;
@@ -107,10 +133,9 @@ export const Workshop = () => {
     useEffect(() => {
         let idInterval = setInterval(() => {
             const difference = calculateTimeDifference(new Date().toISOString(), proposedDate.toISOString());
-            if (!difference.days && !difference.hours && !difference.minutes && !difference.seconds){
+            if (!difference.days && !difference.hours && !difference.minutes && !difference.seconds) {
                 clearInterval(idInterval);
-                window.location.reload();
-
+                // window.location.reload();
             }
             const labelTime: HTMLElement | null = document.getElementById("calculated-schedule");
             if (labelTime) {
@@ -140,161 +165,271 @@ export const Workshop = () => {
         }
     }, [])
 
+    function onGoTop() {
+        document.getElementById("section-workshoppage-top-element")!.scrollIntoView();
+    }
+
     return (
-        <div className="mil-wrapper">
+        <>
+            <section className="mil-about mil-deep-bg mil-p-120-0" id="section-workshoppage-top-element">
+                <div className="container">
+                    <div className="row align-items-center justify-content-between">
+                        <div className="col-xl-6 mil-mb-60">
+                            <h1>{webinarElement.heroSection.title.leftText}<span className="mil-accent">{webinarElement.heroSection.title.centerText}</span>{webinarElement.heroSection.title.rightText}</h1>
+                            <h2 className="mil-mb-20">{webinarElement.heroSection.subtitle}</h2>
 
 
-            <div className="mil-banner-sm-3">
-                <img src={webinarElement.backgroundImage} className="mil-background-image" style={{ objectPosition: "center" }} data-swiper-parallax="-100" data-swiper-parallax-scale="1.1" alt="image" />
-                <div className="mil-overlay"></div>
-                <div className="mil-banner-content">
-                    <div className="container mil-relative">
+                            <Form id="formEvent" method="post">
 
-                        <div className="row justify-content-between">
-                            <div className="col-xl-6">
-
-                                <span className="mil-suptitle mil-light mil-suptitle-2 mil-mb-30">{webinarElement.subTitle}</span>
-                                <TwoColorTitle title={webinarElement.title} />
-
-                                <div className="mil-mb-20">
-                                    <h3 className="mil-light">Inicia en: <span id="calculated-schedule" style={{ color: "red" }}></span></h3>
+                                <div className="mil-input-frame mil-dark-input mil-mb-30">
+                                    <label className="mil-h6 mil-dark"><span>Nombre completo</span></label>
+                                    <input type="text" name="fullname" required placeholder="Juan Díaz" />
                                 </div>
-                                <ul className="mil-simple-list mil-mb-50">
-                                    <li><span className="mil-light" id="calculated-schedule-date"></span></li>
-                                    <li><span className="mil-light" id="calculated-schedule-time"></span></li>
-                                </ul >
 
-                                <p className="mil-light-soft mil-mb-120">{webinarElement.teacherDescription}</p>
+                                <div className="mil-input-frame mil-dark-input mil-mb-30">
+                                    <label className="mil-h6 mil-dark"><span>Correo electrónico</span></label>
+                                    <input type="email" name="email" required placeholder="hola@sitio.com" />
+                                </div>
+                                <input hidden type='text' placeholder="Fecha y hora" name="eventDate" defaultValue={proposedDate.toISOString()}></input>
+                                <input hidden type='text' placeholder="Id contenido" name='contentId' defaultValue={webinarElement.contentId}></input>
+
+                                <button type="submit" className="mil-button mil-border mil-fw mil-mb-20"><span>{webinarElement.heroSection.ctaDescription}</span></button>
+                                <p className="mil-text-sm mil-mb-30">{webinarElement.heroSection.ctaNote}</p>
+
+                            </Form>
+
+
+                            <div className="row">
+                                {webinarElement.heroSection.statsList.map((i: any) => (
+                                    <div className="col-xl-6" key={i.id}>
+                                        <div className="">
+                                            <h2>{i.count}</h2>
+                                            <div className="mil-divider mil-divider-left mil-mb-20"></div>
+                                            <p>{i.description}</p>
+                                        </div>
+
+                                    </div>
+                                ))
+                                }
 
                             </div>
-                            <div className="col-xl-5 mil-relative">
-
-                                <Form id="formEvent" method="post" className="mil-event-form">
-                                    <h4 className="mil-mb-60 mil-text-center">Aparta tu lugar!</h4>
-
-                                    <div className="mil-input-frame mil-dark-input mil-mb-30">
-                                        <label className="mil-h6 mil-dark"><span>Nombre completo</span></label>
-                                        <input type="text" name="fullname" required placeholder="Juan Díaz" />
-                                    </div>
-
-                                    <div className="mil-input-frame mil-dark-input mil-mb-30">
-                                        <label className="mil-h6 mil-dark"><span>Correo electrónico</span></label>
-                                        <input type="email" name="email" required placeholder="hola@sitio.com" />
-                                    </div>
-                                    <input hidden type='text' placeholder="Fecha y hora" name="eventDate" defaultValue={proposedDate.toISOString()}></input>
-                                    <input hidden type='text' placeholder="Id contenido" name='contentId' defaultValue={webinarElement.contentId}></input>
-
-
-                                    <button type="submit" className="mil-button mil-border mil-fw"><span>Reservar Ahora!</span></button>
-
-                                </Form>
-
-                            </div>
-                        </div>
-
-                    </div>
-                </div>
-            </div>
-            <div className="mil-banner-panel">
-                <div className="container">
-                    <div className="row">
-                        <div className="col-xl-6">
-
-                            <h6>Digital <span className="mil-accent">Transformation</span> Services & Why It Matters Webinar</h6>
 
                         </div>
-                    </div>
-                </div>
-            </div>
-            <section className="mil-p-120-120">
-                <div className="container">
-                    <div className="row">
-                        <div className="col-xl-6">
-                            <h4 className="mil-mb-30">{webinarElement.whatLearnTitle}</h4>
-
-                            <ul className="mil-check-icon-list mil-mb-60">
-                                {webinarElement.benefit01 &&
-                                <li className="mil-mb-30">
-                                    <img src={iconSm12} alt="icon" />
-                                    <span className="mil-dark">{webinarElement.benefit01}</span>
-                                </li>}
-                                {webinarElement.benefit02 &&
-                                <li className="mil-mb-30">
-                                    <img src={iconSm12} alt="icon" />
-                                    <span className="mil-dark">{webinarElement.benefit02}</span>
-                                </li>}
-
-                                {webinarElement.benefit03 &&
-                                <li className="mil-mb-30">
-                                    <img src={iconSm12} alt="icon" />
-                                    <span className="mil-dark">{webinarElement.benefit03}</span>
-                                </li>}
-                                {webinarElement.benefit04&&
-                                <li className="mil-mb-30">
-                                    <img src={iconSm12} alt="icon" />
-                                    <span className="mil-dark">{webinarElement.benefit04}</span>
-                                </li>}
-                                {webinarElement.benefit05&&
-                                <li className="mil-mb-30">
-                                    <img src={iconSm12} alt="icon" />
-                                    <span className="mil-dark">{webinarElement.benefit05}</span>
-                                </li>}
-                                {webinarElement.benefit06&&
-                                <li className="mil-mb-30">
-                                    <img src={iconSm12} alt="icon" />
-                                    <span className="mil-dark">{webinarElement.benefit06}</span>
-                                </li>}
-
-
-                            </ul>
-
-                            <div className="mil-divider mil-mb-60"></div>
-
-                            <h4 className="mil-mb-60">{webinarElement.whoWithLearnTitle}</h4>
-
-                            <div className="row mil-mb-30">
-
-                               { ( 
-                                webinarElement.teacherName.split(",").find( (x:string) => x === 'fabian') ) === 'fabian' && <div className="col-xl-6">
-                                    <a href="team-single.html" className="mil-post-sm mil-top-text mil-mb-30">
-                                        <div className="mil-cover-frame"><img src={iconFace2} alt="cover" /></div>
-                                        <div className="mil-description">
-                                            <h5 className="mil-mb-10">Fabian Arreola</h5>
-                                            <p className="mil-text-sm">Director de Operaciones <br />Orion 10x</p>
-                                        </div>
-                                    </a>
-                                </div>}
-
-                                { ( 
-                                webinarElement.teacherName.split(",").find( (x:string) => x === 'jm') ) === 'jm' && <div className="col-xl-6">
-                                    <a className="mil-post-sm mil-top-text mil-mb-30">
-                                        <div className="mil-cover-frame"><img src={iconFace1} alt="cover" /></div>
-                                        <div className="mil-description">
-                                            <h5 className="mil-mb-10">José Manuel Gómez</h5>
-                                            <p className="mil-text-sm">Director de IT <br />Orion 10x</p>
-                                        </div>
-                                    </a>
-                                </div>}
-                                { ( 
-                                webinarElement.teacherName.split(",").find( (x:string) => x === 'jaime') ) === 'jaime' && <div className="col-xl-6">
-                                    <a className="mil-post-sm mil-top-text mil-mb-30">
-                                        <div className="mil-cover-frame"><img src={iconFace3} alt="cover" /></div>
-                                        <div className="mil-description">
-                                            <h5 className="mil-mb-10">Jaime Lara</h5>
-                                            <p className="mil-text-sm">Especialista PMP <br />Orion 10x</p>
-                                        </div>
-                                    </a>
-                                </div>}
-
+                        <div className="col-xl-5">
+                            <div className="video-container_1_1">
+                                <video
+                                    controls
+                                    id="pain-agitate-video"
+                                    className="video-js"
+                                    style={{ width: "100%", height: "100%" }}
+                                    preload="auto"
+                                    data-setup={{}} >
+                                    <source src={"https://d3b5jsw9b8umga.cloudfront.net/video/erp-que-es-short1.1.mp4"}>
+                                    </source>
+                                </video>
                             </div>
-
-
                         </div>
                     </div>
                 </div>
             </section>
 
+            <section className="call-to-action mil-gradient-bg mil-p-120-0">
+                <div className="mil-deco mil-deco-accent" style={{ top: 0, left: "15%" }}></div>
+                <div className="container mil-text-center">
+                    <div className="mil-cta-frame">
+                        <FontAwesomeIcon icon={faGooglePlusSquare} size='4x' color="white" />
+                        <br />
+                        <p className="mil-light mil-mb-30">+100 calificacione positivas en Google</p>
+                        <h2 className="mil-light mil-mb-30"><span className="mil-accent">Visita</span> Nuestro Canal</h2>
+                        <a href="https://www.youtube.com/@Orion-10x" className="mil-button-with-label " style={{ marginBottom: "2rem" }}>
+                            <div className="mil-button mil-border mil-icon-button mil-light"><span><FontAwesomeIcon icon={faPlay} size="2x" /></span></div><span className="mil-light">Ver Videos</span>
+                        </a>
+                    </div>
+                </div>
+            </section>
 
-        </div>
+            <section className="mil-services mil-p-120-90">
+                <div className="mil-deco" style={{ top: "0", right: "20%" }}></div>
+                <div className="container">
+                    <h2 className="mil-mb-30">{webinarElement.benefitsSection.title.textLeft}<span className="mil-accent"> {webinarElement.benefitsSection.title.textRight}</span></h2>
+
+                    <div className="row">
+                        <div className="col-lg-6 col-xl-6">
+                            {
+                                webinarElement.benefitsSection.benefitsList.filter((w: any, n: number) => n % 2 == 0)
+                                    .map((x: any, position: number) => (
+                                        <div key={position}>
+                                            <div className="mil-divider mil-divider-left"></div>
+                                            <div className="mil-service-item">
+                                                <div className="mil-service-icon">
+                                                    <div className="mil-icon-frame mil-icon-frame-md">
+                                                        <img src={x.iconUrl} alt="icon" />
+                                                    </div>
+                                                </div>
+                                                <div className="mil-service-text">
+                                                    <h5 className="mil-mb-30"><span className="mil-accent">0{position + 1}</span>{x.title}</h5>
+                                                    <p>  {x.description}</p>
+                                                </div>
+                                            </div>
+
+                                        </div>
+                                    ))
+
+                            }
+                        </div>
+
+                        <div className="col-lg-6 col-xl-6">
+                            {
+                                webinarElement.benefitsSection.benefitsList.filter((w: any, n: number) => n % 2 == 1)
+                                    .map((x: any, position: number) => (
+                                        <div key={position}>
+                                            <div className="mil-divider mil-divider-left"></div>
+                                            <div className="mil-service-item">
+                                                <div className="mil-service-icon">
+                                                    <div className="mil-icon-frame mil-icon-frame-md">
+                                                        <img src={x.iconUrl} alt="icon" />
+                                                    </div>
+                                                </div>
+                                                <div className="mil-service-text">
+                                                    <h5 className="mil-mb-30"><span className="mil-accent">0{position + webinarElement.benefitsSection.benefitsList.length - 1}</span>{x.title}</h5>
+                                                    <p>  {x.description}</p>
+                                                </div>
+                                            </div>
+
+                                        </div>
+                                    ))
+
+                            }
+                        </div>
+
+
+
+                    </div>
+                </div>
+            </section>
+            <div style={{ textAlign: "center" }} >
+                <a className="mil-button mil-border mil-mb-30" style={{ width: "400px" }} onClick={onGoTop}><span>{webinarElement.heroSection.ctaDescription}</span></a>
+            </div>
+
+            <section className="mil-reviews mil-p-120-120">
+                <div className="container">
+                    <h2 className="mil-mb-30">Testimonios de <span className="mil-accent">nuestros clientes</span></h2>
+                    <div className="swiper-container mil-revi-slider-2">
+
+                        <Swiper
+                            modules={[Autoplay, EffectFade]}
+                            speed={2500}
+                            autoplay={{ delay: 1000, waitForTransition: true }}
+                            allowTouchMove={true}
+                            slidesPerView={2}
+                        >
+                            {
+                                webinarElement.testimonialSection.testimonialsList.map((rev: any, num: number) => (
+                                    <SwiperSlide key={num}>
+
+                                        <div className="mil-review mil-text-center">
+                                            <div className="mil-icon-frame mil-icon-frame-md mil-mb-30">
+                                                <img src={icon07} alt="icon" />
+                                            </div>
+                                            <p className="mil-mb-30">{rev.quote}</p>
+                                            <div className="mil-stars mil-mb-30">
+                                                <ul>
+                                                    <li><FontAwesomeIcon icon={faStar} size='1x' color="orange" /></li>
+                                                    <li><FontAwesomeIcon icon={faStar} size='1x' color="orange" /></li>
+                                                    <li><FontAwesomeIcon icon={faStar} size='1x' color="orange" /></li>
+                                                    <li><FontAwesomeIcon icon={faStar} size='1x' color="orange" /></li>
+                                                    <li><FontAwesomeIcon icon={faStar} size='1x' color="orange" /></li>
+                                                </ul>
+                                            </div>
+                                            <div className="mil-author">
+                                                <img src={rev.selfiUrl} alt="Customer" />
+                                                <div className="mil-name">
+                                                    <h6>{rev.displayName}</h6>
+                                                    <span className="mil-text-sm">{rev.position}</span>
+                                                </div>
+                                            </div>
+                                        </div>
+
+
+                                    </SwiperSlide>
+                                ))
+
+                            }
+
+                        </Swiper>
+
+                    </div>
+                </div>
+            </section>
+            <div style={{ textAlign: "center" }} >
+                <a className="mil-button mil-border mil-mb-30" style={{ width: "400px" }} onClick={onGoTop}><span>{webinarElement.heroSection.ctaDescription}</span></a>
+            </div>
+
+            <section className="mil-faqs mil-p-0-120">
+
+                <div className="mil-deco" style={{ bottom: "0", left: "10%", transform: "rotate(180deg)" }}></div>
+                <div className="container">
+
+                    <div className="mil-tabs">
+
+                        <h2>{webinarElement.faqSection.title.textLeft} <span className="mil-accent">{webinarElement.faqSection.title.textRight}</span></h2>
+                        <div className="mil-tab" style={{ display: "block" }}>
+
+                            <div className="row justify-content-between">
+
+                                <div className="col-lg-4">
+                                    <h3 className="mil-up-font mil-mb-30"><span className="mil-accent">{webinarElement.faqSection.paragraphTitle.textLeft} </span>{webinarElement.faqSection.paragraphTitle.textRight}</h3>
+                                    <p className="mil-mb-60">{webinarElement.faqSection.description}</p>
+                                </div>
+
+
+                                <div className="col-lg-7">
+
+                                    <ul className="accordion-jm">
+                                        {
+                                            webinarElement.faqSection.faqList.map((faq: any, n: number) => (
+                                                <li key={n}>
+                                                    <label htmlFor={`accordion-${n}`}><div><FontAwesomeIcon icon={faQuestionCircle} /> {faq.question}</div> <span>&#x3e;</span></label>
+                                                    <input type="radio" name="accordion" id={`accordion-${n}`}></input>
+                                                    <div className="detailed-content">
+                                                        <p>
+                                                            {faq.description}
+                                                        </p>
+                                                        {!!faq.videoUrl &&
+
+                                                            <div className="video-container_1_1">
+                                                                <video
+                                                                    controls
+                                                                    className="video-js"
+                                                                    style={{ width: "100%", height: "500px" }}
+                                                                    preload="auto"
+                                                                    data-setup={{}} >
+                                                                    <source src={faq.videoUrl}>
+                                                                    </source>
+                                                                </video>
+                                                            </div>
+                                                        }
+                                                    </div>
+                                                </li>
+                                            ))
+                                        }
+
+                                    </ul>
+
+                                </div>
+                            </div>
+
+                        </div>
+
+
+                    </div>
+
+
+                </div>
+
+            </section>
+
+
+        </>
     );
 }

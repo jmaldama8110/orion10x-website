@@ -5329,3 +5329,5 @@ para el PREVIEW component
     --angle: 360deg;
   }
 }
+
+.full-border{ border: 1px solid black}
