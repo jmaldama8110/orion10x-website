@@ -38,8 +38,7 @@ async function registerFbEvent(){
         const fbToken = import.meta.env.VITE_FACEBOOK_TOKEN;
         
         const qs = `${fbUrl}/${fbPixelId}/events?access_token=${fbToken}`
-
-        await api.post(qs,{
+        const resFbApi = await api.post(qs,{
             "data": [
                 {
                     "event_name": "ViewContent",
