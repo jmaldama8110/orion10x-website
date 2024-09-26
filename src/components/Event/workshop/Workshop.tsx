@@ -1,14 +1,8 @@
 
 import { Form, redirect, useLoaderData } from "react-router-dom";
 import api from "../../../api/api";
-import { TwoColorTitle } from "../TwoColorTitle";
 import { useEffect } from "react";
 import { calculateNextEventDate, calculateTimeDifference } from "../../../utils/dateDiff";
-import iconSm12 from "../../../assets/icons/sm/12.svg";
-import iconFace1 from "../../../assets/faces/jm-selfi.jpg"
-import iconFace2 from "../../../assets/faces/fabian-selfi.jpeg"
-import iconFace3 from "../../../assets/faces/jaime-selfi.jpeg"
-import odooReadyPartner from "../../../assets/odoo_ready_partners_rgb.png"
 
 import icon07 from '../../../assets/icons/md/7.svg';
 
@@ -33,7 +27,42 @@ interface iUpdates {
 export async function loader({ params }: any) {
     const webinarElement: any = await getLandingData(params.landingId);
     console.log({ webinarElement: { ...webinarElement, landingId: params.landingId } })
+    await registerFbEvent();
     return { webinarElement: { ...webinarElement, landingId: params.landingId } };
+}
+
+async function registerFbEvent(){
+    try{
+        const fbUrl = import.meta.env.VITE_FACEBOOK_URL;
+        const fbPixelId = import.meta.env.VITE_FACEBOOK_PIXEL_ID;
+        const fbToken = import.meta.env.VITE_FACEBOOK_TOKEN;
+        
+        const qs = `${fbUrl}/${fbPixelId}/events?access_token=${fbToken}`
+
+        await api.post(qs,{
+            "data": [
+                {
+                    "event_name": "ViewContent",
+                    "event_time": Math.trunc(Date.now()/1000),
+                    "action_source": "website",
+                    "user_data": {
+                        "em": [
+                            "7b17fb0bd173f625b58636fb796407c22b3d16fc78302d79f0fd30c2fc2fc068"
+                        ],
+                        "ph": [null],
+                        "ct": [null],
+                        "fn": [null],
+                        "ln": [null],
+                        "ge": [null],
+                        "fb_login_id": null
+                    }
+                }
+            ]
+        })
+    }
+    catch(e){
+        console.log('Facebook api error',e)
+    }
 }
 export async function action({ request }: any) {
     const formData = await request.formData();
@@ -77,6 +106,7 @@ async function registerUser(updates: iUpdates) {
     const contentId = updates.contentId
     const endDate = updates.eventDate
     const password = import.meta.env.VITE_DEFAULT_PASS
+
     try {
         const response = await api.post(qs, { username, email, password, fullname });
         console.log("User created!");
