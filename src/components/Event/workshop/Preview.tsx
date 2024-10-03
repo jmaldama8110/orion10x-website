@@ -75,11 +75,13 @@ export const Preview = () => {
                 const labelTime: HTMLElement | null = document.getElementById("calculated-schedule");
 
                 if (labelTime) {
-                    const daysText = difference.days ? `${difference.days} Día(s), ` : '';
-                    const hoursText = difference.hours ? `${difference.hours} Hora(s) y ` : "   ";
-                    const minutesText = `${difference.minutes}:${difference.seconds} mins`
-                    labelTime.innerText = `${daysText}${hoursText}${minutesText}`
-                }
+                    const daysText = difference.days >= 0 ? `${difference.days} Día(s), ` : '0 Día(s)';
+                    const hoursText = difference.hours >=0 ? `${difference.hours} Hora(s) y ` : "0 Hora(s)";
+                    const minutesText = difference.minutes >=0 ? `${difference.minutes}` : `0`
+                    const secsText = difference.seconds >=0 ? `${difference.seconds}` : `0`
+                    
+                    labelTime.innerText = `${daysText}${hoursText}${minutesText}:${secsText}`;
+                    }
 
 
             }, 1000)
