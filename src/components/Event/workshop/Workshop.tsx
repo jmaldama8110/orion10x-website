@@ -173,7 +173,7 @@ export const Workshop = () => {
                 const minutesText = difference.minutes >=0 ? `${difference.minutes}` : `0`
                 const secsText = difference.seconds >=0 ? `${difference.seconds}` : `0`
                 
-                labelTime.innerText = `${daysText}${hoursText}${minutesText}:${secsText}`;
+                labelTime.innerText = `${daysText}${hoursText}${minutesText}:${secsText} mins`;
                 
             }
             const labelScheduleDate: HTMLElement | null = document.getElementById("calculated-schedule-date");
