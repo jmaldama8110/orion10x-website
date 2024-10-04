@@ -26,7 +26,6 @@ interface iUpdates {
 }
 export async function loader({ params }: any) {
     const webinarElement: any = await getLandingData(params.landingId);
-    console.log({ webinarElement: { ...webinarElement, landingId: params.landingId } })
     await registerFbEvent();
     return { webinarElement: { ...webinarElement, landingId: params.landingId } };
 }
@@ -85,7 +84,12 @@ async function getLandingData(id: number) {
         "populate[4]=testimonialSection.testimonialsList&",
         "populate[5]=faqSection.title&",
         "populate[6]=faqSection.paragraphTitle&",
-        "populate[7]=faqSection.faqList",
+        "populate[7]=faqSection.faqList&",
+        "populate[8]=painAgitationSection.title&",
+        "populate[9]=painAgitationSection.paragrap01&",
+        "populate[10]=painAgitationSection.paragrap02&",
+        "populate[11]=painAgitationSection.paragrap03&",
+        "populate[12]=painAgitationSection.paragrap04",    
     ];
     const qs = `/api/landpages?${str.join("")}`;
     try {
@@ -279,6 +283,57 @@ export const Workshop = () => {
                     </div>
                 </div>
             </section>
+
+            <section className="mil-deep-bg mil-p-120-60">
+            <div className="mil-deco" style={{ top: "0", right: "15%" }}></div>
+            <div className="container">
+                <div className="row justify-content-between align-items-center">
+
+                    <div className="col-lg-5 mil-mb-60" >
+
+                        <div className="video-container_1_1">
+                            <video
+                                controls
+                                id="pain-agitate-video"
+                                className="video-js"
+                                style={{ width: "100%", height: "100%" }}
+                                preload="auto"
+                                data-setup={{}} >
+                                <source src={webinarElement.painAgitationSection.videoUrl}>
+                                </source>
+                            </video>
+                        </div>
+                    </div>
+                    <div className="col-lg-6 mil-mb-60">
+
+                        <span className="mil-suptitle mil-suptitle-2 mil-mb-20">{webinarElement.painAgitationSection.subjectBullet}</span>
+                        <h3 className="mil-mb-20">{webinarElement.painAgitationSection.title.textLeft} <span className="mil-accent">{webinarElement.painAgitationSection.title.textRight}</span></h3>
+
+                        <h4 className="mil-mb-20">{webinarElement.painAgitationSection.paragrap01.leftText} <span className="mil-accent">{webinarElement.painAgitationSection.paragrap01.centerText}</span> {webinarElement.painAgitationSection.paragrap01.rightText}</h4>
+
+                        <h5 className="mil-mb-20">
+                            {webinarElement.painAgitationSection.paragrap02.leftText} <span className="mil-accent">{webinarElement.painAgitationSection.paragrap02.centerText} </span>
+                            {webinarElement.painAgitationSection.paragrap02.rightText}
+
+                        </h5>
+                        <p className="mil-mb-20">
+                            {webinarElement.painAgitationSection.paragrap03.leftText}
+                            {webinarElement.painAgitationSection.paragrap03.centerText}
+                            {webinarElement.painAgitationSection.paragrap03.rightText}
+                        </p>
+
+                        <p>
+                            {webinarElement.painAgitationSection.paragrap04.leftText} <span className="mil-accent">{webinarElement.painAgitationSection.paragrap04.centerText} </span>
+                            {webinarElement.painAgitationSection.paragrap04.rightText}
+                        </p>
+
+  
+                    </div>
+                </div>
+            </div>
+        </section>
+
+
 
             <section className="mil-services mil-p-120-90">
                 <div className="mil-deco" style={{ top: "0", right: "20%" }}></div>
