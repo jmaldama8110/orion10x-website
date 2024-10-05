@@ -5,6 +5,8 @@ import { useEffect } from "react";
 import { calculateNextEventDate, calculateTimeDifference } from "../../../utils/dateDiff";
 
 import icon07 from '../../../assets/icons/md/7.svg';
+import icon01 from '../../../assets/icons/sm/12.svg';
+
 
 // Import Swiper styles
 import "swiper/css";
@@ -13,8 +15,8 @@ import "swiper/css/pagination";
 import { Swiper, SwiperSlide } from 'swiper/react';
 import { Autoplay, EffectFade } from "swiper/modules";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import { faPlay, faQuestionCircle, faStar } from "@fortawesome/free-solid-svg-icons";
-import { faGooglePlusSquare } from "@fortawesome/free-brands-svg-icons";
+import { faQuestionCircle, faStar } from "@fortawesome/free-solid-svg-icons";
+
 
 
 
@@ -95,6 +97,7 @@ async function getLandingData(id: number) {
     try {
         const response = await api.get(qs);
         const attributes = response.data.data[0].attributes;
+        console.log(attributes);
         return attributes;
     }
     catch (e) {
@@ -269,7 +272,46 @@ export const Workshop = () => {
                 </div>
             </section>
 
-            <section className="call-to-action mil-gradient-bg mil-p-120-0">
+            <section >
+                <div className="container">
+                        <div className="row align-items-center justify-content-between">
+
+            <h4 className="mil-mb-60 mil-mt-60">{webinarElement.whatLearnTitle}</h4>
+                <ul className="mil-check-icon-list mil-mb-60">
+                    {webinarElement.benefit01 &&<li className="mil-mb-30">
+                        <img src={icon01} alt="icon"/>
+                        <span className="mil-dark">{webinarElement.benefit01}</span>
+                    </li>}
+                    {webinarElement.benefit02 &&<li className="mil-mb-30">
+                        <img src={icon01} alt="icon"/>
+                        <span className="mil-dark">{webinarElement.benefit02}</span>
+                    </li>}
+                    {webinarElement.benefit03 &&<li className="mil-mb-30">
+                        <img src={icon01} alt="icon"/>
+                        <span className="mil-dark">{webinarElement.benefit03}</span>
+                    </li>}
+                    {webinarElement.benefit04 &&<li className="mil-mb-30">
+                        <img src={icon01} alt="icon"/>
+                        <span className="mil-dark">{webinarElement.benefit04}</span>
+                    </li>}
+                    {webinarElement.benefit05 &&<li className="mil-mb-30">
+                        <img src={icon01} alt="icon"/>
+                        <span className="mil-dark">{webinarElement.benefit05}</span>
+                    </li>}
+                    {webinarElement.benefit06 &&<li className="mil-mb-30">
+                        <img src={icon01} alt="icon"/>
+                        <span className="mil-dark">{webinarElement.benefit06}</span>
+                    </li>}
+
+                </ul>
+                <div className="mil-divider mil-mb-60"></div>
+                </div>
+                </div>
+            </section>
+
+
+
+ {  /*         <section className="call-to-action mil-gradient-bg mil-p-120-0">
                 <div className="mil-deco mil-deco-accent" style={{ top: 0, left: "15%" }}></div>
                 <div className="container mil-text-center">
                     <div className="mil-cta-frame">
@@ -282,7 +324,7 @@ export const Workshop = () => {
                         </a>
                     </div>
                 </div>
-            </section>
+            </section>*/}
 
             <section className="mil-deep-bg mil-p-120-60">
             <div className="mil-deco" style={{ top: "0", right: "15%" }}></div>
