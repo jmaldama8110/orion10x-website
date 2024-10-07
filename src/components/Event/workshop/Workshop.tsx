@@ -333,7 +333,7 @@ export const Workshop = () => {
                         </div>
                         <div className="col-lg-6 mil-mb-60">
 
-                            <span className="mil-suptitle mil-suptitle-2 mil-mb-20">{webinarElement.painAgitationSection.subjectBullet}</span>
+                            {/* <span className="mil-suptitle mil-suptitle-2 mil-mb-20">{webinarElement.painAgitationSection.subjectBullet}</span> */}
                             <h3 className="mil-mb-20">{webinarElement.painAgitationSection.title.textLeft} <span className="mil-accent">{webinarElement.painAgitationSection.title.textRight}</span></h3>
 
                             <h4 className="mil-mb-20">{webinarElement.painAgitationSection.paragrap01.leftText} <span className="mil-accent">{webinarElement.painAgitationSection.paragrap01.centerText}</span> {webinarElement.painAgitationSection.paragrap01.rightText}</h4>
