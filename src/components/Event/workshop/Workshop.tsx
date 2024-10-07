@@ -15,7 +15,8 @@ import "swiper/css/pagination";
 import { Swiper, SwiperSlide } from 'swiper/react';
 import { Autoplay, EffectFade } from "swiper/modules";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import { faQuestionCircle, faStar } from "@fortawesome/free-solid-svg-icons";
+import { faPlay, faQuestionCircle, faStar } from "@fortawesome/free-solid-svg-icons";
+import { faGooglePlusSquare } from "@fortawesome/free-brands-svg-icons";
 
 
 
@@ -32,18 +33,18 @@ export async function loader({ params }: any) {
     return { webinarElement: { ...webinarElement, landingId: params.landingId } };
 }
 
-async function registerFbEvent(){
-    try{
+async function registerFbEvent() {
+    try {
         const fbUrl = import.meta.env.VITE_FACEBOOK_URL;
         const fbPixelId = import.meta.env.VITE_FACEBOOK_PIXEL_ID;
         const fbToken = import.meta.env.VITE_FACEBOOK_TOKEN;
-        
+
         const qs = `${fbUrl}/${fbPixelId}/events?access_token=${fbToken}`
-        const resFbApi = await api.post(qs,{
+        const resFbApi = await api.post(qs, {
             "data": [
                 {
                     "event_name": "ViewContent",
-                    "event_time": Math.trunc(Date.now()/1000),
+                    "event_time": Math.trunc(Date.now() / 1000),
                     "action_source": "website",
                     "user_data": {
                         "em": [
@@ -60,8 +61,8 @@ async function registerFbEvent(){
             ]
         })
     }
-    catch(e){
-        console.log('Facebook api error',e)
+    catch (e) {
+        console.log('Facebook api error', e)
     }
 }
 export async function action({ request }: any) {
@@ -91,7 +92,7 @@ async function getLandingData(id: number) {
         "populate[9]=painAgitationSection.paragrap01&",
         "populate[10]=painAgitationSection.paragrap02&",
         "populate[11]=painAgitationSection.paragrap03&",
-        "populate[12]=painAgitationSection.paragrap04",    
+        "populate[12]=painAgitationSection.paragrap04",
     ];
     const qs = `/api/landpages?${str.join("")}`;
     try {
@@ -176,12 +177,12 @@ export const Workshop = () => {
             const labelTime: HTMLElement | null = document.getElementById("calculated-schedule");
             if (labelTime) {
                 const daysText = difference.days >= 0 ? `${difference.days} Día(s), ` : '0 Día(s)';
-                const hoursText = difference.hours >=0 ? `${difference.hours} Hora(s) y ` : "0 Hora(s)";
-                const minutesText = difference.minutes >=0 ? `${difference.minutes}` : `0`
-                const secsText = difference.seconds >=0 ? `${difference.seconds}` : `0`
-                
+                const hoursText = difference.hours >= 0 ? `${difference.hours} Hora(s) y ` : "0 Hora(s)";
+                const minutesText = difference.minutes >= 0 ? `${difference.minutes}` : `0`
+                const secsText = difference.seconds >= 0 ? `${difference.seconds}` : `0`
+
                 labelTime.innerText = `${daysText}${hoursText}${minutesText}:${secsText} mins`;
-                
+
             }
             const labelScheduleDate: HTMLElement | null = document.getElementById("calculated-schedule-date");
             if (labelScheduleDate) {
@@ -213,7 +214,7 @@ export const Workshop = () => {
             <section className="mil-about mil-deep-bg mil-p-120-0" id="section-workshoppage-top-element">
                 <div className="container">
                     <div className="row align-items-center justify-content-between">
-                        <div className="col-xl-6 mil-mb-60">
+                        <div className="mil-mb-60 mil-text-center">
                             <h1>{webinarElement.heroSection.title.leftText}<span className="mil-accent">{webinarElement.heroSection.title.centerText}</span>{webinarElement.heroSection.title.rightText}</h1>
                             <h2 className="mil-mb-20">{webinarElement.heroSection.subtitle}</h2>
 
@@ -221,13 +222,11 @@ export const Workshop = () => {
                             <Form id="formEvent" method="post">
 
                                 <div className="mil-input-frame mil-dark-input mil-mb-30">
-                                    <label className="mil-h6 mil-dark"><span>Nombre completo</span></label>
-                                    <input type="text" name="fullname" required placeholder="Juan Díaz" />
+                                    <input type="text" name="fullname" required placeholder="Tu nombre" />
                                 </div>
 
                                 <div className="mil-input-frame mil-dark-input mil-mb-30">
-                                    <label className="mil-h6 mil-dark"><span>Correo electrónico</span></label>
-                                    <input type="email" name="email" required placeholder="hola@sitio.com" />
+                                    <input type="email" name="email" required placeholder="Correo eletrónico" />
                                 </div>
                                 <input hidden type='text' placeholder="Fecha y hora" name="eventDate" defaultValue={proposedDate.toISOString()}></input>
                                 <input hidden type='text' placeholder="Id contenido" name='contentId' defaultValue={webinarElement.contentId}></input>
@@ -254,64 +253,50 @@ export const Workshop = () => {
                             </div>
 
                         </div>
-                        <div className="col-xl-5">
-                            <div className="video-container_1_1">
-                                <video
-                                    controls
-                                    id="pain-agitate-video"
-                                    className="video-js"
-                                    style={{ width: "100%", height: "100%" }}
-                                    preload="auto"
-                                    data-setup={{}} >
-                                    <source src={"https://d3b5jsw9b8umga.cloudfront.net/video/erp-que-es-short1.1.mp4"}>
-                                    </source>
-                                </video>
-                            </div>
-                        </div>
+
                     </div>
                 </div>
             </section>
 
             <section >
-                <div className="container">
-                        <div className="row align-items-center justify-content-between">
+                <div className="container mil-text-center">
+                    <div className="align-items-center justify-content-between">
 
-            <h4 className="mil-mb-60 mil-mt-60">{webinarElement.whatLearnTitle}</h4>
-                <ul className="mil-check-icon-list mil-mb-60">
-                    {webinarElement.benefit01 &&<li className="mil-mb-30">
-                        <img src={icon01} alt="icon"/>
-                        <span className="mil-dark">{webinarElement.benefit01}</span>
-                    </li>}
-                    {webinarElement.benefit02 &&<li className="mil-mb-30">
-                        <img src={icon01} alt="icon"/>
-                        <span className="mil-dark">{webinarElement.benefit02}</span>
-                    </li>}
-                    {webinarElement.benefit03 &&<li className="mil-mb-30">
-                        <img src={icon01} alt="icon"/>
-                        <span className="mil-dark">{webinarElement.benefit03}</span>
-                    </li>}
-                    {webinarElement.benefit04 &&<li className="mil-mb-30">
-                        <img src={icon01} alt="icon"/>
-                        <span className="mil-dark">{webinarElement.benefit04}</span>
-                    </li>}
-                    {webinarElement.benefit05 &&<li className="mil-mb-30">
-                        <img src={icon01} alt="icon"/>
-                        <span className="mil-dark">{webinarElement.benefit05}</span>
-                    </li>}
-                    {webinarElement.benefit06 &&<li className="mil-mb-30">
-                        <img src={icon01} alt="icon"/>
-                        <span className="mil-dark">{webinarElement.benefit06}</span>
-                    </li>}
+                        <h4 className="mil-mb-60 mil-mt-60">{webinarElement.whatLearnTitle}</h4>
+                        <ul className="mil-check-icon-list mil-mb-60">
+                            {webinarElement.benefit01 && <li className="mil-mb-30">
+                                <img src={icon01} alt="icon" />
+                                <span className="mil-dark">{webinarElement.benefit01}</span>
+                            </li>}
+                            {webinarElement.benefit02 && <li className="mil-mb-30">
+                                <img src={icon01} alt="icon" />
+                                <span className="mil-dark">{webinarElement.benefit02}</span>
+                            </li>}
+                            {webinarElement.benefit03 && <li className="mil-mb-30">
+                                <img src={icon01} alt="icon" />
+                                <span className="mil-dark">{webinarElement.benefit03}</span>
+                            </li>}
+                            {webinarElement.benefit04 && <li className="mil-mb-30">
+                                <img src={icon01} alt="icon" />
+                                <span className="mil-dark">{webinarElement.benefit04}</span>
+                            </li>}
+                            {webinarElement.benefit05 && <li className="mil-mb-30">
+                                <img src={icon01} alt="icon" />
+                                <span className="mil-dark">{webinarElement.benefit05}</span>
+                            </li>}
+                            {webinarElement.benefit06 && <li className="mil-mb-30">
+                                <img src={icon01} alt="icon" />
+                                <span className="mil-dark">{webinarElement.benefit06}</span>
+                            </li>}
 
-                </ul>
-                <div className="mil-divider mil-mb-60"></div>
-                </div>
+                        </ul>
+                        <div className="mil-divider mil-mb-60"></div>
+                    </div>
                 </div>
             </section>
 
 
-
- {  /*         <section className="call-to-action mil-gradient-bg mil-p-120-0">
+            {/* <section className="call-to-action mil-gradient-bg mil-p-120-0">
                 <div className="mil-deco mil-deco-accent" style={{ top: 0, left: "15%" }}></div>
                 <div className="container mil-text-center">
                     <div className="mil-cta-frame">
@@ -324,56 +309,56 @@ export const Workshop = () => {
                         </a>
                     </div>
                 </div>
-            </section>*/}
+            </section> */}
 
             <section className="mil-deep-bg mil-p-120-60">
-            <div className="mil-deco" style={{ top: "0", right: "15%" }}></div>
-            <div className="container">
-                <div className="row justify-content-between align-items-center">
+                <div className="mil-deco" style={{ top: "0", right: "15%" }}></div>
+                <div className="container">
+                    <div className="row justify-content-between align-items-center">
 
-                    <div className="col-lg-5 mil-mb-60" >
+                        <div className="col-lg-5 mil-mb-60" >
 
-                        <div className="video-container_1_1">
-                            <video
-                                controls
-                                id="pain-agitate-video"
-                                className="video-js"
-                                style={{ width: "100%", height: "100%" }}
-                                preload="auto"
-                                data-setup={{}} >
-                                <source src={webinarElement.painAgitationSection.videoUrl}>
-                                </source>
-                            </video>
+                            <div className="video-container_1_1">
+                                <video
+                                    controls
+                                    id="pain-agitate-video"
+                                    className="video-js"
+                                    style={{ width: "100%", height: "100%" }}
+                                    preload="auto"
+                                    data-setup={{}} >
+                                    <source src={webinarElement.painAgitationSection.videoUrl}>
+                                    </source>
+                                </video>
+                            </div>
+                        </div>
+                        <div className="col-lg-6 mil-mb-60">
+
+                            <span className="mil-suptitle mil-suptitle-2 mil-mb-20">{webinarElement.painAgitationSection.subjectBullet}</span>
+                            <h3 className="mil-mb-20">{webinarElement.painAgitationSection.title.textLeft} <span className="mil-accent">{webinarElement.painAgitationSection.title.textRight}</span></h3>
+
+                            <h4 className="mil-mb-20">{webinarElement.painAgitationSection.paragrap01.leftText} <span className="mil-accent">{webinarElement.painAgitationSection.paragrap01.centerText}</span> {webinarElement.painAgitationSection.paragrap01.rightText}</h4>
+
+                            <h5 className="mil-mb-20">
+                                {webinarElement.painAgitationSection.paragrap02.leftText} <span className="mil-accent">{webinarElement.painAgitationSection.paragrap02.centerText} </span>
+                                {webinarElement.painAgitationSection.paragrap02.rightText}
+
+                            </h5>
+                            <p className="mil-mb-20">
+                                {webinarElement.painAgitationSection.paragrap03.leftText}
+                                {webinarElement.painAgitationSection.paragrap03.centerText}
+                                {webinarElement.painAgitationSection.paragrap03.rightText}
+                            </p>
+
+                            <p>
+                                {webinarElement.painAgitationSection.paragrap04.leftText} <span className="mil-accent">{webinarElement.painAgitationSection.paragrap04.centerText} </span>
+                                {webinarElement.painAgitationSection.paragrap04.rightText}
+                            </p>
+
+
                         </div>
                     </div>
-                    <div className="col-lg-6 mil-mb-60">
-
-                        <span className="mil-suptitle mil-suptitle-2 mil-mb-20">{webinarElement.painAgitationSection.subjectBullet}</span>
-                        <h3 className="mil-mb-20">{webinarElement.painAgitationSection.title.textLeft} <span className="mil-accent">{webinarElement.painAgitationSection.title.textRight}</span></h3>
-
-                        <h4 className="mil-mb-20">{webinarElement.painAgitationSection.paragrap01.leftText} <span className="mil-accent">{webinarElement.painAgitationSection.paragrap01.centerText}</span> {webinarElement.painAgitationSection.paragrap01.rightText}</h4>
-
-                        <h5 className="mil-mb-20">
-                            {webinarElement.painAgitationSection.paragrap02.leftText} <span className="mil-accent">{webinarElement.painAgitationSection.paragrap02.centerText} </span>
-                            {webinarElement.painAgitationSection.paragrap02.rightText}
-
-                        </h5>
-                        <p className="mil-mb-20">
-                            {webinarElement.painAgitationSection.paragrap03.leftText}
-                            {webinarElement.painAgitationSection.paragrap03.centerText}
-                            {webinarElement.painAgitationSection.paragrap03.rightText}
-                        </p>
-
-                        <p>
-                            {webinarElement.painAgitationSection.paragrap04.leftText} <span className="mil-accent">{webinarElement.painAgitationSection.paragrap04.centerText} </span>
-                            {webinarElement.painAgitationSection.paragrap04.rightText}
-                        </p>
-
-  
-                    </div>
                 </div>
-            </div>
-        </section>
+            </section>
 
 
 
