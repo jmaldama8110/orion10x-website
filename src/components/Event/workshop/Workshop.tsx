@@ -29,6 +29,7 @@ interface iUpdates {
 }
 export async function loader({ params }: any) {
     const webinarElement: any = await getLandingData(params.landingId);
+    console.log(webinarElement);
     await registerFbEvent();
     return { webinarElement: { ...webinarElement, landingId: params.landingId } };
 }
@@ -94,7 +95,7 @@ async function getLandingData(id: number) {
         "populate[11]=painAgitationSection.paragrap03&",
         "populate[12]=painAgitationSection.paragrap04",
     ];
-    const qs = `/api/landpages?${str.join("")}`;
+    const qs = `/api/workshops?${str.join("")}`;
     try {
         const response = await api.get(qs);
         const attributes = response.data.data[0].attributes;
