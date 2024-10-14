@@ -15,10 +15,7 @@ import "swiper/css/pagination";
 import { Swiper, SwiperSlide } from 'swiper/react';
 import { Autoplay, EffectFade } from "swiper/modules";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import { faPlay, faQuestionCircle, faStar } from "@fortawesome/free-solid-svg-icons";
-import { faGooglePlusSquare } from "@fortawesome/free-brands-svg-icons";
-
-
+import { faQuestionCircle, faStar } from "@fortawesome/free-solid-svg-icons";
 
 
 interface iUpdates {

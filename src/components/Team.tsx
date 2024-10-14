@@ -14,7 +14,7 @@ export const AboutTeamAndCompany = () => {
 
   return (
     <>
-    <div style={ { height: "100px", background: "gray"}}></div>
+    <div style={ { height: "100px", background: "black"}}></div>
       <div className="mil-wrapper" id="about">
         <div className="mil-banner-sm mil-deep-bg">
           <img src={mapImg} alt="background" className="mil-background-image" />

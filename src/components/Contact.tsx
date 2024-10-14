@@ -41,7 +41,7 @@ export const Contact = () => {
     }
     return (
         <>
-            <div style={{ height: "100px", background: "gray" }}></div>
+            <div style={{ height: "100px", background: "black" }}></div>
             <section className="mil-contact mil-gradient-bg mil-p-120-0" id='contact'>
                 <div className="mil-deco mil-deco-accent" style={{ top: "0", right: "10%" }}></div>
                 <div className="container">

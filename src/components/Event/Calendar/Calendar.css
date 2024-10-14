@@ -1,0 +1,51 @@
+.rbc-event {
+    background-color: rgb(245, 124, 0) !important;
+    padding: 0;
+    text-align: center;
+}
+
+.rbc-event-label {
+    display: none !important;
+    text-align: center !important;
+}
+
+.event-calendar-unav {
+    color: gainsboro;
+    font-size: 8px !important;
+    text-align: center;
+}
+.event-calendar-av {
+    text-align: center;
+    height: 100%;
+}
+
+.legend {
+    margin: 1rem;
+    display: flex;
+    justify-content: center;
+}
+.square {
+    margin: 0.3rem;
+    background: rgb(245, 124, 0);
+    border: 1px solid black;
+    width: 12px;
+    height: 12px;
+}
+
+.booking-modal {
+    padding: 1em;
+    margin: auto;
+    width: 50ch;
+    height: auto;
+    & > * { 
+        margin: 0 0 0.5rem 0;
+    }
+}
+.booking-modal::backdrop {
+    background: rgb(0 0 0 /0.5) ;
+    
+}
+
+.show-hide {
+    display: none;
+}

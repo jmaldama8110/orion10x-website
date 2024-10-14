@@ -3,6 +3,7 @@ import ReactDOM from 'react-dom/client'
 import './components/css/bootstrap-grid.css';
 import './index.css'
 import './components/css/Spinner.css';
+import "react-big-calendar/lib/css/react-big-calendar.css";
 import {
   createBrowserRouter,
   // redirect,
@@ -25,6 +26,7 @@ import { Services } from './components/Services.tsx';
 import { Index } from './components/Index.tsx';
 import { Blog } from './components/Blog.tsx';
 import { Contact } from './components/Contact.tsx';
+import { BookAppointment, loader as BookAppointmentLoader, action as BookAppointmentAction } from './components/Event/Calendar/BasicCalendar.tsx';
 
 const router = createBrowserRouter([
   {
@@ -81,6 +83,13 @@ const router = createBrowserRouter([
     errorElement: <ErrorPage />
 
   }
+  ,
+      {
+        path: "/book",
+        element: <BookAppointment />,
+        loader: BookAppointmentLoader,
+        action: BookAppointmentAction
+      }
 
 
 ]);

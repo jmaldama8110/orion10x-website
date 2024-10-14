@@ -13,6 +13,11 @@ export type metaDataType = {
     logoUrl: string,
     demoVideoUrl: string;
 }
+
+export type MenuType = {
+    menuItems: menuItemType[]
+    ctaActionButton: buttonType 
+}
 export type menuItemType = {
     position: number
     url: string
@@ -38,6 +43,7 @@ export type twoColorTitleType = {
 export type buttonType = {
     label: string
     style: "primary" | "secondary"
+    actionUrl?: string
 }
 
 export type pageBreadcrumbType = {
@@ -104,7 +110,7 @@ export interface iPageData {
     description: string
     slug: string
     metaData: metaDataType
-    menu: menuItemType[]
+    menu: MenuType
     backgroundSlides: slideItemType[]
     introSection: {
         largeTitle: string
@@ -253,7 +259,7 @@ export const PageDataDefault: iPageData = {
         metaTitle: '',
         demoVideoUrl: ''
     },
-    menu: [],
+    menu: { menuItems: [], ctaActionButton: { label: "", style: "secondary"}},
     backgroundSlides: [],
     introSection: {
         largeTitle: '',

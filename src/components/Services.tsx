@@ -11,7 +11,7 @@ export const Services = () => {
     const { pageData }: any = useLoaderData();
     return (
         <>
-            <div style={{ height: "100px", background: "gray" }}></div>
+            <div style={{ height: "100px", background: "black" }}></div>
 
             <div id="services">
 

@@ -93,6 +93,7 @@ header .navtoggle-label span::after {
     }
     header .menu-container p{
         color: white;
+        
     }
     
     header {
@@ -114,6 +115,7 @@ header .navtoggle-label span::after {
     header nav a,header nav p {
         opacity: 1;
         color: white;
+        
     }
     header nav li {
         position: relative;        
@@ -124,7 +126,7 @@ header .navtoggle-label span::after {
         margin-top: 2em;
     }
     header nav li {
-        width: 120px;
+        width: 180px;
         text-align: center;
     }
     header nav li::before {

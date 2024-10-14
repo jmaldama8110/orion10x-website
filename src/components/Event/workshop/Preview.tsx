@@ -1,4 +1,4 @@
-import { redirect, useLoaderData } from "react-router-dom";
+import {  useLoaderData } from "react-router-dom";
 import api from "../../../api/api";
 import { useEffect, useRef, useState } from "react";
 import { calculateNextEventDate, calculateTimeDifference } from "../../../utils/dateDiff";

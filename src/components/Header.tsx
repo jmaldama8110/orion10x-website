@@ -2,6 +2,7 @@ import './css/Header.css';
 
 import { iPageData, menuItemType } from '../reducer/PageModel';
 
+
 export const Header: React.FC<{ data: iPageData}> = ({ data }) => {
     
     return (
@@ -11,7 +12,7 @@ export const Header: React.FC<{ data: iPageData}> = ({ data }) => {
                 <nav>
                     <ul>
                         {
-                            data.menu.map((i:menuItemType) => (
+                            data.menu.menuItems.map((i:menuItemType) => (
                                 <li key={i.position}> <a href={`${i.url}`}>{i.text}</a></li>
                             ))
                         }
@@ -21,6 +22,14 @@ export const Header: React.FC<{ data: iPageData}> = ({ data }) => {
                 <label htmlFor='togglecheck-header' className='navtoggle-label'>
                     <span></span>
                 </label>
+                <a
+                    className="mil-button mil-border mil-light"
+                    href={data.menu.ctaActionButton.actionUrl}
+                    style={{ marginRight: "1rem", marginTop: "1rem" }}
+                  >
+                    <span>{data.menu.ctaActionButton.label}</span>
+                  </a>
+
                  <p><img src={`${data.metaData.logoUrl}`}></img></p> 
             </div>
         </header>

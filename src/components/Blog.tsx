@@ -9,7 +9,7 @@ export const Blog = () => {
     const { pageData }: any = useLoaderData();
     return (
         <>
-        <div style={{ height: "100px", background: "gray" }}></div>
+        <div style={{ height: "100px", background: "black" }}></div>
         <div id="blog">
 
             <div className="mil-banner-sm mil-deep-bg">
