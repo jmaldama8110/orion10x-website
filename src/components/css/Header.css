@@ -86,7 +86,16 @@ header .navtoggle-label span::after {
     top: 7px;
 }
 
+header .menu-container img  {
+    display: none   ;
+}
+
+
 @media screen and (min-width: 980px) {
+    header .menu-container img  {
+        display: inline-block;
+    }
+    
 
     header .navtoggle-label {
         display: none;
