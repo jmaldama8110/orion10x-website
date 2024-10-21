@@ -179,11 +179,10 @@ export function BookAppointment() {
             <dialog className="booking-modal" id='booking-modal'>
 
                 <Form id="formBookingCall" className="mil-event-form" method="post">
-                    <h4 className="mil-mb-60 mil-text-center">¿Cómo te podemos contactar?</h4>
-                    <h5 className="mil-mb-60 mil-text-center" id='selected-date-display'></h5>
+                    <h5 className="mil-mb-20 mil-text-center" id='selected-date-display'></h5>
 
                     <div className="mil-input-frame mil-dark-input mil-mb-30">
-                        <label className="mil-h6 mil-dark"><span>Teléfono de contacto</span></label>
+                        <label className="mil-dark"><span>Teléfono de contacto</span></label>
                         <input type="text" name="phone" required placeholder="(999)-999-99-99" onChange={onPhoneInput} id="input_phone_cta" />
                     </div>
                     <div className="mil-input-frame mil-dark-input mil-mb-30">

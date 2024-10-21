@@ -209,6 +209,7 @@ export interface iPageData {
         joinTitle: ThreeColorTextType
         joinDescription: string
         emailInputPlaceholder: string
+        messageInputPlaceholder: string
         joinButton: buttonType
         
         socialList: menuItemType[]
@@ -392,6 +393,7 @@ export const PageDataDefault: iPageData = {
         },
         joinDescription: "",
         emailInputPlaceholder: "",
+        messageInputPlaceholder: "",
         joinButton: {
             label: '',
             style: 'secondary'

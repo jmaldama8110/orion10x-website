@@ -264,6 +264,7 @@ async function loadFromApi() {
                 },
                 joinDescription: attributes.footerSection.joinDescription,
                 emailInputPlaceholder: attributes.footerSection.emailInputPlaceholder,
+                messageInputPlaceholder: attributes.footerSection.messageInputPlaceholder,
                 joinButton: {
                     label: attributes.footerSection.joinButton.label,
                     style: attributes.footerSection.joinButton.style
