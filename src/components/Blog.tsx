@@ -2,7 +2,7 @@ import decoMap from '../assets/deco/map.png';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faArrowLeft, faArrowRight, faSearch } from '@fortawesome/free-solid-svg-icons';
 import { BlogEntryType, IconListItem } from '../reducer/PageModel';
-import { useLoaderData } from 'react-router-dom';
+import { Link, useLoaderData } from 'react-router-dom';
 
 export const Blog = () => {
 
@@ -12,20 +12,6 @@ export const Blog = () => {
         <div style={{ height: "100px", background: "black" }}></div>
         <div id="blog">
 
-            <div className="mil-banner-sm mil-deep-bg">
-                <img src={decoMap} alt="background" className="mil-background-image" />
-                <div className="mil-deco mil-deco-accent" style={{ top: "47%", right: "10%", transform: "rotate(90deg)" }}></div>
-                <div className="mil-banner-content">
-                    <div className="container mil-relative">
-                        <ul className="mil-breadcrumbs mil-mb-30">
-                            <li><a href={pageData.blogSection.pageBreadcrumb.url}>{pageData.blogSection.pageBreadcrumb.textLeft}</a></li>
-                            <li><a href="careers.html">{pageData.blogSection.pageBreadcrumb.sectionName}</a></li>
-                        </ul>
-                        <h2 className="mil-uppercase">{pageData.blogSection.headingTitle}</h2>
-                    </div>
-                </div>
-            </div>
-
             <section className="mil-blog mil-p-120-0">
                 <div className="container">
 
@@ -34,7 +20,7 @@ export const Blog = () => {
                         <div className="col-lg-8 col-xl-8 mil-mb-120">
                             {
                                 pageData.blogSection.entries.map((i: BlogEntryType, n: number) => (
-                                    <a href="publication.html" className="mil-card mil-mb-60" key={n}>
+                                    <Link to={`/publication/${i.entryId}`} className="mil-card mil-mb-60" key={n}>
                                         <div className="mil-cover-frame">
                                             <img src={`${i.imageUrl}`} alt="project" />
                                         </div>
@@ -50,7 +36,7 @@ export const Blog = () => {
                                                 <p>{i.description}</p>
                                             </div>
                                         </div>
-                                    </a>
+                                    </Link>
                                 ))}
                             <div className="mil-divider mil-mb-60"></div>
 

@@ -27,6 +27,9 @@ import { Index } from './components/Index.tsx';
 import { Blog } from './components/Blog.tsx';
 import { Contact } from './components/Contact.tsx';
 import { BookAppointment, loader as BookAppointmentLoader, action as BookAppointmentAction } from './components/Event/Calendar/BasicCalendar.tsx';
+import { Publication, loader as publicationLoader } from './components/Event/Publication/Publication.tsx';
+import { FreeResources } from './components/FreeResources.tsx';
+import { FreeWorkshops } from './components/FreeWorkshops.tsx';
 
 const router = createBrowserRouter([
   {
@@ -62,6 +65,21 @@ const router = createBrowserRouter([
         loader: loaderHome
       },
       {
+        path: "/free-resources",
+        element: <FreeResources />,
+        loader: loaderHome
+      },
+      {
+        path:"/publication/:publicationId",
+        element: <Publication />,
+        loader: publicationLoader
+      },
+      {
+        path: "/workshops",
+        element: <FreeWorkshops />,
+        loader: loaderHome
+      },    
+      {
         path: "/contact",
         element: <Contact />,
         loader: loaderHome
@@ -84,13 +102,12 @@ const router = createBrowserRouter([
 
   }
   ,
-      {
-        path: "/book",
-        element: <BookAppointment />,
-        loader: BookAppointmentLoader,
-        action: BookAppointmentAction
-      }
-
+  {
+    path: "/book",
+    element: <BookAppointment />,
+    loader: BookAppointmentLoader,
+    action: BookAppointmentAction
+  }
 
 ]);
 

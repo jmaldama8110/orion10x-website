@@ -90,7 +90,8 @@ export type BlogEntryType = {
     category: string
     dateIssued: string
     description: string
-    imageUrl: string
+    imageUrl: string,
+    entryId: number
 }
 export type TestimonialEntryType = {
     quote: string;
@@ -103,6 +104,13 @@ export type FaqEntryType = {
     question: string
     description: string
     videoUrl: string
+}
+export type CardButtonType = {
+    title: string
+    description: string
+    actionLabel: string
+    url: string
+    order: number
 }
 
 export interface iPageData {
@@ -246,7 +254,17 @@ export interface iPageData {
         paragraphTitle: twoColorTitleType;
         description: string;
         faqList: FaqEntryType []
-    }
+    },
+    freeSection: {
+        title: string
+        description: string
+        cardsList: CardButtonType []
+    },
+    freeWorkshopsList: {
+        title: string
+        description: string
+        cardsList: CardButtonType[]
+    }[]
     
 }
 
@@ -439,8 +457,14 @@ export const PageDataDefault: iPageData = {
         paragraphTitle: { textLeft: "", textRight: ""},
         description: "",
         faqList: []
-    }
-    
+    },
+    freeSection: {
+        title: "", description: "", cardsList: []
+    },
+    freeWorkshopsList: []
+
+
+
 }
 
 

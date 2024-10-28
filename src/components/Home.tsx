@@ -77,7 +77,11 @@ async function loadFromApi() {
 
             "populate[49]=faqSection.title&",
             "populate[50]=faqSection.paragraphTitle&",
-            "populate[51]=faqSection.faqList",
+            "populate[51]=faqSection.faqList&",
+
+            "populate[52]=freeSection.cardsList&",
+
+            "populate[53]=freeWorkshopsList.cardsList",
 
 
         ];
@@ -228,7 +232,9 @@ async function loadFromApi() {
                     category: i.category,
                     dateIssued: i.dateIssued,
                     description: i.description,
-                    imageUrl: i.imageUrl
+                    imageUrl: i.imageUrl,
+                    entryId: i.entryId
+
                 }))
             },
             contactSection: {
@@ -312,8 +318,15 @@ async function loadFromApi() {
                 paragraphTitle: attributes.faqSection.paragraphTitle,
                 description: attributes.faqSection.description,
                 faqList: attributes.faqSection.faqList
-            }
+            },
+            freeSection: {
+                title: attributes.freeSection.title,
+                description: attributes.freeSection.description,
+                cardsList: attributes.freeSection.cardsList
+            },
+            freeWorkshopsList: attributes.freeWorkshopsList
         }
+        console.log(pageData.freeWorkshopsList  )
         return pageData;
 
     } catch (e: any) {

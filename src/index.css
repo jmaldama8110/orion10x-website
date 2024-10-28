@@ -5330,4 +5330,11 @@ para el PREVIEW component
   }
 }
 
+/* for youtube videos Iframe */
+.yt-element {
+  aspect-ratio: 16/9;
+  border: 5px solid black;
+  box-shadow: rgba(0, 0, 0, 0.35) 0px 25px 15px;
+  width: 100%;
+}
 .full-border{ border: 1px solid black}
