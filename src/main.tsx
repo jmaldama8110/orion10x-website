@@ -26,6 +26,7 @@ import { Services } from './components/Services.tsx';
 import { Index } from './components/Index.tsx';
 import { Blog } from './components/Blog.tsx';
 import { Contact } from './components/Contact.tsx';
+import { Event, action as eventAction, loader as eventLoader } from './components/Event/workshop/Event.tsx';
 import { BookAppointment, loader as BookAppointmentLoader, action as BookAppointmentAction } from './components/Event/Calendar/BasicCalendar.tsx';
 import { Publication, loader as publicationLoader } from './components/Event/Publication/Publication.tsx';
 import { FreeResources } from './components/FreeResources.tsx';
@@ -100,8 +101,14 @@ const router = createBrowserRouter([
     element: <Preview />,
     errorElement: <ErrorPage />
 
-  }
-  ,
+  },
+  {
+    path:"/event/:landingId",
+    element: <Event />,
+    loader: eventLoader,
+    action: eventAction,
+    errorElement: <ErrorPage />
+  },
   {
     path: "/book",
     element: <BookAppointment />,

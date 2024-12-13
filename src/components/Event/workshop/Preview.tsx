@@ -134,13 +134,15 @@ export const Preview = () => {
         }
     }
 
+
     useEffect(() => {
         let counter = 0;
         if (eventStart) {
-            setInterval(() => {
+            let idInterval = setInterval(() => {
                 counter = counter + 1;
                 if (counter == previewInfo.duration) {
                     setEventEnded(true);
+                    clearInterval(idInterval)
                 }
             }, 1000)
         }

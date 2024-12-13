@@ -1,13 +1,14 @@
 import { useEffect } from "react";
 import { calculateNextEventDate, calculateTimeDifference } from "../../utils/dateDiff";
 
-export const CountDownComponent = () => {
+export const CountDownComponent: React.FC<{ eventDate?: Date, minutes?: number, location: string }> = ({ eventDate, minutes, location }) => {
 
     useEffect(() => {
         const currentTime = new Date();
-        const endDate = calculateNextEventDate(currentTime, 20);
+        const endDate = minutes ? calculateNextEventDate(currentTime, minutes) : eventDate;
+
         let idInterval = setInterval(() => {
-            const difference = calculateTimeDifference(new Date().toISOString(), endDate.toISOString());
+            const difference = calculateTimeDifference(new Date().toISOString(), endDate!.toISOString());
             if (!difference.days && !difference.hours && !difference.minutes && !difference.seconds)
                 clearInterval(idInterval);
             const labelTime: HTMLElement | null = document.getElementById("calculated-schedule");
@@ -19,7 +20,7 @@ export const CountDownComponent = () => {
             }
             const labelScheduleDate: HTMLElement | null = document.getElementById("calculated-schedule-date");
             if (labelScheduleDate) {
-                labelScheduleDate.innerText = `${endDate.toLocaleDateString("es-MX", {
+                labelScheduleDate.innerText = `${endDate!.toLocaleDateString("es-MX", {
                     weekday: "long",
                     year: "numeric",
                     month: "long",
@@ -28,7 +29,8 @@ export const CountDownComponent = () => {
             }
             const labelScheduleTime: HTMLElement | null = document.getElementById("calculated-schedule-time");
             if (labelScheduleTime) {
-                labelScheduleTime.innerText = `${endDate.toTimeString()}`
+                // labelScheduleTime.innerText = `${endDate!.toTimeString()}`
+                labelScheduleTime.innerText = `${endDate!.toLocaleTimeString()}`
             }
 
         }, 1000)
@@ -41,11 +43,14 @@ export const CountDownComponent = () => {
 
     return (
         <>
-            <h3><span id="calculated-schedule"></span></h3>
-            <ul>
-                <li><span id="calculated-schedule-date"></span></li>
-                <li><span id="calculated-schedule-time"></span></li>
-            </ul >
+            <h3 className="mil-light mil-text-center">Solo faltan:</h3>
+            <p className="mil-light mil-mb-20 mil-text-center" style={{ color: "red" }}><span id="calculated-schedule"></span></p>
+            <ul className="mil-simple-list mil-mb-50">
+                <li><span className="mil-light" id="calculated-schedule-date"></span></li>
+                <li><span className="mil-light" >{location}</span></li>
+                <li><span className="mil-light" id="calculated-schedule-time"></span></li>
+            </ul>
+
         </>
     );
 }

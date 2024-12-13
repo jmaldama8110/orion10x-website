@@ -26,43 +26,11 @@ interface iUpdates {
 }
 export async function loader({ params }: any) {
     const webinarElement: any = await getLandingData(params.landingId);
-    console.log(webinarElement);
-    await registerFbEvent();
     return { webinarElement: { ...webinarElement, landingId: params.landingId } };
 }
 
-async function registerFbEvent() {
-    try {
-        const fbUrl = import.meta.env.VITE_FACEBOOK_URL;
-        const fbPixelId = import.meta.env.VITE_FACEBOOK_PIXEL_ID;
-        const fbToken = import.meta.env.VITE_FACEBOOK_TOKEN;
 
-        const qs = `${fbUrl}/${fbPixelId}/events?access_token=${fbToken}`
-        const resFbApi = await api.post(qs, {
-            "data": [
-                {
-                    "event_name": "ViewContent",
-                    "event_time": Math.trunc(Date.now() / 1000),
-                    "action_source": "website",
-                    "user_data": {
-                        "em": [
-                            "7b17fb0bd173f625b58636fb796407c22b3d16fc78302d79f0fd30c2fc2fc068"
-                        ],
-                        "ph": [null],
-                        "ct": [null],
-                        "fn": [null],
-                        "ln": [null],
-                        "ge": [null],
-                        "fb_login_id": null
-                    }
-                }
-            ]
-        })
-    }
-    catch (e) {
-        console.log('Facebook api error', e)
-    }
-}
+
 export async function action({ request }: any) {
     const formData = await request.formData();
     const updates: any = Object.fromEntries(formData);
@@ -71,7 +39,7 @@ export async function action({ request }: any) {
     if (!url)
         throw new Error('No fue posible el registro')
     return redirect(url);
-
+    
 }
 
 async function getLandingData(id: number) {
@@ -95,8 +63,7 @@ async function getLandingData(id: number) {
     const qs = `/api/workshops?${str.join("")}`;
     try {
         const response = await api.get(qs);
-        const attributes = response.data.data[0].attributes;
-        console.log(attributes);
+        const attributes = response.data.data[0].attributes
         return attributes;
     }
     catch (e) {
@@ -164,6 +131,7 @@ export const Workshop = () => {
     /// valores no cambian, por tanto pueden ir aqui
     const currentTime = new Date();
     const proposedDate = calculateNextEventDate(currentTime, webinarElement.everyMinute);
+    // const proposedDate = new Date(2025,1,12);
 
     useEffect(() => {
         let idInterval = setInterval(() => {

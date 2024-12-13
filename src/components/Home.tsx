@@ -326,7 +326,7 @@ async function loadFromApi() {
             },
             freeWorkshopsList: attributes.freeWorkshopsList
         }
-        console.log(pageData.freeWorkshopsList  )
+        
         return pageData;
 
     } catch (e: any) {

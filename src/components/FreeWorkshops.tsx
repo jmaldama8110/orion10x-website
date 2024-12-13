@@ -10,6 +10,7 @@ export const FreeWorkshops = () => {
             <div style={{ height: "100px", background: "black" }}></div>
 
             <section className="mil-p-120-0">
+                
                 <div className="container">
 
 
